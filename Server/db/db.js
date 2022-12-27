@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose')
 const config=require('../config/config')
-mongoose.set("strictQuery",false);
+// mongoose.set("strictQuery",false);
 async function connect() {
     return new Promise((resolve, reject) => {
         mongoose.connect(`${config.MONGO_URL}`, (err) => {

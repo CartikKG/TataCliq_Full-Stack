@@ -14,7 +14,7 @@ const getAllUser=()=>{
     return User.find();
 }
 const getUserByID=(id)=>{
-    return User.findById(id).populate('cart');
+    return User.findById(id).populate('carts');
 }
 const deleteUserByID=(id)=>{
     return User.findOneAndDelete(id);

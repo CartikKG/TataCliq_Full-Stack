@@ -17,8 +17,6 @@ const authorization=(req,res,next)=>{
            
       }
       
-    
-    
     }else{
         return res.status(400).send("No Token Provided")
     }

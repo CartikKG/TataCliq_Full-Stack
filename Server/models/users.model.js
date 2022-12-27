@@ -30,7 +30,7 @@ const userSchema=new mongoose.Schema(
         },
         facebookOAuth:{
               useremail:String,
-        },cart:[{type:mongoose.Schema.Types.ObjectId,ref:"carts"}],
+        },cart:{type:mongoose.Schema.Types.ObjectId,ref:"carts"},
         wishlist:{
             type:Array,
         }
