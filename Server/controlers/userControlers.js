@@ -23,13 +23,9 @@ const deleteUserByID=(id)=>{
 const patchUserByID=async(id,dataa,users)=>{
    let user=await User.find({id})
    if(user){
-
-   return User.findByIdAndUpdate(id,patch,{new:true});
-   
+    return User.findByIdAndUpdate(id,patch,{new:true});
    }else{
-
-
-      return "User Not Found"
+    return "User Not Found"
    }
 }
 const registeredNewUser=async ({name,email,password})=>{
