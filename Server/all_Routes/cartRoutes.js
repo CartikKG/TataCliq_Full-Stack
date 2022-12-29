@@ -71,7 +71,7 @@ router.post("/:id", async (req, res) => {
 
 
         router.delete("/", Auth, async (req, res) => {
-            const owner = req.user._id;
+            const owner = req.params.id;
             const ProductId = req.query.ProductId;
             try {
                let cart = await Cart.findOne({ owner });
