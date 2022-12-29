@@ -4,10 +4,10 @@ const Product = require("../models/product.model");
 const Auth = require('../middleware/authorization');
 const router = express.Router();
 //get 
-router.get("/", async (req, res) => {
-    const owner = req.query._id;
+router.post("/:id", async (req, res) => {
+    const owner = req.params.id;
     try {
-        const cart = await Cart.findOne({ owner });
+        const cart = await Cart.findOne({owner});
     if (cart && cart.Products.length > 0) {
          res.status(200).send(cart);
     } else {
@@ -21,8 +21,8 @@ router.get("/", async (req, res) => {
 
 
 
-    router.post("/", Auth, async (req, res) => {
-        const owner = req.user._id;
+    router.post("/:id", Auth, async (req, res) => {
+        const owner = req.params.id;
         const { ProductId, quantity } = req.body;
         try {
             const cart = await Cart.findOne({ owner });
@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
             return;
         }
             const price = Product.price;
-            const name = Product.name;
+            const name = Product.title;
         //If cart already exists for user,
         if (cart) {
             const ProductIndex = cart.Products.findIndex((Product) => Product.ProductId ==  ProductId);
@@ -58,7 +58,7 @@ router.get("/", async (req, res) => {
         //no cart exists, create one
         const newCart = await Cart.create({
            owner,
-           Products: [{ ProductId, name, quantity, price }],
+           Products: [{ ProductId, title, quantity, price }],
             bill: quantity * price,
         });
         return res.status(201).send(newCart);
