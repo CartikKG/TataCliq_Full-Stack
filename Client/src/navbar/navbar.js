@@ -4008,6 +4008,7 @@ function NavBar() {
             <div className="right_lower_box_third">
               <input
                 id="right_lower_box_third_input_box_id"
+                style={{borderRadius:"8px"}}
                 className={
                   current
                     ? "right_lower_box_third_input_box whiteoninput"
