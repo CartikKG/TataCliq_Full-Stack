@@ -5,7 +5,7 @@
 .smallimg{
     display: flex;
     margin-top: 10px;
-    height: 120px;
+    height: 100%;
     background-color: hsl(0,0%,93%);
     width: 100%;    
 }
@@ -55,7 +55,6 @@ height:100%;
 }
 .brendf>div{
     margin: auto;
-    height: 340px;
     width: 23.5%;
 }
 .brenda>div{
@@ -91,9 +90,8 @@ height:100%;
    margin: auto;
   
     display: flex;
-    height: 400px;
     width: 83%;
-    margin-top: 60px;
+    margin-top: 20%;
   
 }
 .brendi img:hover{
@@ -131,7 +129,6 @@ height:100%;
 .brendg{
     margin: auto;
     display: block;
-    height: 360px;
     width: 80%;
     margin-top: 40px;
     
@@ -144,19 +141,16 @@ height:100%;
 }
 .brendi>div{
     margin: auto;
-    height: 380px;
     width: 48%;
    
 }
 .brendj>div{
     margin: auto;
-    height: 380px;
     width: 48%;
     
 }
 .brendk>div{
     margin: auto;
-    height: 380px;
     width: 48%;
     
 }
@@ -168,7 +162,6 @@ height:100%;
 }
 .brendo>div{
     margin: auto;
-    height: 380px;
     width: 48%;
     
 }
@@ -219,10 +212,10 @@ height:100%;
     .mapD img{
         transition: .8s;
     }
-    @media (max-Width: 400px) {
+    /* @media (max-Width: 400px) {
         .smallimg{
             height: 100%;
-            /* display: grid; */
+            display: grid;
             grid-template-columns: repeat(1fr 5);
         }
-    }
+    } */
