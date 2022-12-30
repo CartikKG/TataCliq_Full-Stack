@@ -1,4 +1,4 @@
-const config = require('../Config/config');
+const config = require('../config/config');
 const jwt=require('jsonwebtoken');
 const authorization=(req,res,next)=>{
     let authorization= req.headers.authorization;

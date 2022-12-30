@@ -1,5 +1,5 @@
 const express=require('express');
-const authorization = require('../middleware/authorization');
+const authorization = require('../Middleware/authorization');
 const Post= require('../controlers/productControlers')
 const route=express.Router();
 // const axios=require('axios')

@@ -1,7 +1,7 @@
 const User=require('../models/users.model');
 const bscryptjs=require('bcryptjs');
 const jwt=require('jsonwebtoken');
-const config = require('../Config/config');
+const config = require('../config/config');
 const axios=require('axios');
 function generateToken(user){
     if(user.password){
