@@ -5,70 +5,94 @@ const Auth = require("../middleware/authorization");
 
 const router = new express.Router();
 
-//get cart items
 
 router.get("/", async (req, res) => {
+  // const owner = req.params.id;
+
+  try {
+    const cart = await Cart.findOne();
+    res.status(200).send({cart:cart});
+   
+  } catch (error) {
+    res.status(500).send("Not Found");
+  }
+});
+router.get("/:id", async (req, res) => {
   const owner = req.params.id;
 
   try {
-    const cart = await Cart.findOne({ owner });
-    if (cart && cart.items.length > 0) {
+    const cart = await Cart.findOne({owner}).populate("items.itemId");
+    // console.log(cart,"fet")
+    // if (cart && cart.items.length > 0) {
       res.status(200).send(cart);
-    } else {
-      res.send(null);
-    }
-  } catch (error) {
-    res.status(500).send();
+    // } else {
+    //   res.send(null);
+    // }
+  } catch (err) {
+    res.status(500).send({error:"Something went wrong"});
   }
 });
 
-//add cart
+
 router.post("/:id", async (req, res) => {
     const owner = req.params.id;
-  const { itemId, quantity } = req.body;
+    let { itemId, quantity } = req.body;
+    // console.log(quantity)
 
   try {
-    const cart = await Cart.findOne({ owner:owner });
-    const item = await Item.findOne({ _id: itemId });
-    // console.log(first)
-
-    if (!item) {
-      res.status(404).send({ message: "item not found" });
-      return;
+    let cart = await Cart.findOne({owner}).populate("items.itemId");
+    let item = await Item.findOne({ _id: itemId });
+    let price=item.price;
+    // let quantity=item
+     if (!item) {
+     return res.status(404).send({ message: "item not found" });
     }
-    const price = item.price;
-    const name = item.title;
-    //If cart already exists for user,
-    if (cart) {
-      const itemIndex = cart.items.findIndex((item) => item.itemId == itemId);
-      //check if product exists or not
 
-      if (itemIndex > -1) {
-        let product = cart.items[itemIndex];
-        product.quantity += quantity;
-
-        cart.bill = cart.items.reduce((acc, curr) => {
-            return acc + curr.quantity * curr.price;
-        },0)
+   if (cart) {
+     let ind=-1;
+     for (let index = 0; index <cart.items.length; index++) {
+       if(cart.items[index].itemId._id==itemId){
+         ind = index;
+         }
         
-        cart.items[itemIndex] = product;
-        await cart.save();
-        res.status(200).send(cart);
-      } else {
-        cart.items.push({ itemId, name, quantity, price });
-        cart.bill = cart.items.reduce((acc, curr) => {
-            return acc + curr.quantity * curr.price;
-        },0)
+      } 
+      if(ind==-1){
+        cart.items.push({itemId,quantity});
+        let bill=0;
+        for (let index = 0; index <cart.items.length-1; index++) {
+           bill+=cart.items[index].quantity*cart.items[index].itemId.price
+        } 
+        bill+=price*quantity;
+        cart.bill=Number(bill);
+        cart.save();
+         return res.send({
+            cart:cart
+         })
+      }else{
+       
+        cart.items[ind].quantity=quantity;
+        let bill=0;
+        cart.items.forEach(element => {
+          bill+=Number( element.quantity)* Number(element.itemId.price);
+        });
+        cart.bill=Number(bill);
+        cart.save();
+         return res.send({
+            cart:cart
+         })
 
-        await cart.save();
-        res.status(200).send(cart);
       }
+      
+   
+      
+
+    
     } else {
-      //no cart exists, create one
-      const newCart = await Cart.create({
+    
+       const newCart = await Cart.create({
         owner,
-        items: [{ itemId, name, quantity, price }],
-        bill: quantity * price,
+        items: [{ itemId,quantity }],
+        bill: Number( quantity) * Number( price),
       });
       return res.status(201).send(newCart);
     }
@@ -78,7 +102,6 @@ router.post("/:id", async (req, res) => {
   }
 });
 
-//delete item in cart
 
 router.delete("/", async (req, res) => {
   const owner = req.user._id;
