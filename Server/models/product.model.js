@@ -24,13 +24,13 @@ const productSchema=new mongoose.Schema(
             type:String,
         },
         brand:{
-              username:String,
+              type:String,
         },
         price:{
-             useremail:Number,
+             type:Number,
         },
         strikedprice:{
-              useremail:Number,
+              type:Number,
         },
         product_type:{
             type:String,
