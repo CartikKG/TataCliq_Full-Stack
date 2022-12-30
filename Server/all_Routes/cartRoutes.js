@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
 
 
 //add
-    router.post("/:id", Auth, async (req, res) => {
+    router.post("/:id", async (req, res) => {
         const owner = req.params.id;
         const { ProductId, quantity } = req.body;
         try {
@@ -70,7 +70,7 @@ router.get("/:id", async (req, res) => {
         });
 
 //delete from cart
-        router.delete("/:id", Auth, async (req, res) => {
+        router.delete("/:id", async (req, res) => {
             const owner = req.params.id;
             const ProductId = req.query.ProductId;
             try {
