@@ -8,7 +8,7 @@ const userSchema=new mongoose.Schema(
             require:true
         },
         email:{
-            type:String,
+            type:String,   
             require:true
         },
         avatar:{
@@ -30,10 +30,8 @@ const userSchema=new mongoose.Schema(
         },
         facebookOAuth:{
               useremail:String,
-        },cart:{type:mongoose.Schema.Types.ObjectId,ref:"carts"},
-        wishlist:{
-            type:Array,
-        }
+        },
+         wishlist:[String]
     },{
         versionKey:false,
         timestamps:true
