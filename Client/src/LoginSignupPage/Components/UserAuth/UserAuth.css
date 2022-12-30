@@ -5,13 +5,13 @@
 }
 #pop-up {
   position: absolute;
-  margin-top: 15%;
+  margin-top: 16%;
   /* top: 50%; */
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
-  height: 600px;
-  padding: 70px 30px;
+  /* width: 40%; */
+  height: 620px;
+  padding: 50px 50px 0px 50px;
   background: #fff;
   box-shadow: 2px 2px 5px 5px rgba(0 0 0 0.15);
   border-radius: 40px;
@@ -51,7 +51,7 @@
   font-weight: light;
   font-size: 13px;
   width: 300px;
-  margin:10% 0% 0% 18%;
+  margin:0% 0% 0% 11%;
 }
 span {
   font-weight: 600;

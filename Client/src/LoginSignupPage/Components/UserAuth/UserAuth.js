@@ -9,7 +9,7 @@ import Otp from "../Otp/Otp";
 import "./UserAuth.css";
 import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup, HStack } from "@chakra-ui/react";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 // import db from "../../db.json";
 
@@ -172,14 +172,26 @@ const UserAuth = () => {
           <Email validate={validate} toggleAuthType={toggleAuthType} />
           <br />
           <div>
-            <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+            <Button
+              onClick={() => {
+                console.log("facebook");
+              }}
+              colorScheme="facebook"
+              leftIcon={<FaFacebook />}
+            >
               Login with Facebook
             </Button>
-            {/* <br />
             <br />
-            <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
-              Login with Facebook
-            </Button> */}
+            <br />
+            <Button
+              onClick={() => {
+                console.log("google");
+              }}
+              colorScheme="red"
+              leftIcon={<FaGoogle />}
+            >
+              Signin with Google+
+            </Button>
           </div>
         </div>
       ) : authType === "mobile" ? (
