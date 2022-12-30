@@ -4,7 +4,7 @@ const Product = require("../models/product.model");
 const Auth = require('../middleware/authorization');
 const router = express.Router();
 //get 
-router.post("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const owner = req.params.id;
     try {
         const cart = await Cart.findOne({owner});
@@ -20,7 +20,7 @@ router.post("/:id", async (req, res) => {
 
 
 
-
+//add
     router.post("/:id", Auth, async (req, res) => {
         const owner = req.params.id;
         const { ProductId, quantity } = req.body;
@@ -58,7 +58,7 @@ router.post("/:id", async (req, res) => {
         //no cart exists, create one
         const newCart = await Cart.create({
            owner,
-           Products: [{ ProductId, title, quantity, price }],
+           Products: [{ ProductId, name, quantity, price }],
             bill: quantity * price,
         });
         return res.status(201).send(newCart);
@@ -69,8 +69,8 @@ router.post("/:id", async (req, res) => {
         }
         });
 
-
-        router.delete("/", Auth, async (req, res) => {
+//delete from cart
+        router.delete("/:id", Auth, async (req, res) => {
             const owner = req.params.id;
             const ProductId = req.query.ProductId;
             try {
