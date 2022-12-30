@@ -69,7 +69,6 @@ router.post("/:id", async (req, res) => {
             cart:cart
          })
       }else{
-       
         cart.items[ind].quantity=quantity;
         let bill=0;
         cart.items.forEach(element => {
@@ -101,25 +100,24 @@ router.post("/:id", async (req, res) => {
     res.status(500).send("something went wrong");
   }
 });
+router.delete("/:id", async (req, res) => {
+  const owner = req.params.id;
 
-
-router.delete("/", async (req, res) => {
-  const owner = req.user._id;
- const itemId = req.query.itemId;
+  const itemId = req.body.itemId;
   try {
-    let cart = await Cart.findOne({ owner });
+    let cart = await Cart.findOne({ owner }).populate("items.itemId");;
 
-    const itemIndex = cart.items.findIndex((item) => item.itemId == itemId);
+    const itemIndex = cart.items.findIndex((item) => item.itemId._id == itemId);
     
     if (itemIndex > -1) {
       let item = cart.items[itemIndex];
-      cart.bill -= item.quantity * item.price;
+      cart.bill -= item.quantity * item.itemId.price;
       if(Number( cart.bill) < 0) {
         Number( cart.bill)  = 0
       } 
       cart.items.splice(itemIndex, 1);
       cart.bill = cart.items.reduce((acc, curr) => {
-        return acc + curr.quantity * curr.price;
+        return acc + curr.quantity * curr.itemId.price;
     },0)
       cart = await cart.save();
 
