@@ -2,13 +2,26 @@ import "./NavBar.css";
 import { Link, Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SigninSignup from "./Signin_Signip_page";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faFolder } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import { LoginContext } from "../ProductSection/Context/Context";
 import { useContext } from "react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  Image,
+} from "@chakra-ui/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 
 function NavBar() {
   // let wishhlistformlocal = localStorage.getItem("wishlistdata");
@@ -74,7 +87,47 @@ function NavBar() {
             <img id="img_of_logo" src="/Tata_Assets/logo.png"></img>
           </Link>
         </div>
+        <div id="navbar_left_bar">
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              // variant="outline"
+             
+              colorScheme='gray'
+              bg={"gray"}
+            >
+              Your Cats
+            </MenuButton>
+            <MenuList>
+              <MenuItem minH="48px">
+                <Image
+                  boxSize="2rem"
+                  borderRadius="full"
+                  src="https://placekitten.com/100/100"
+                  alt="Fluffybuns the destroyer"
+                  mr="12px"
+                />
+                <span>Fluffybuns the Destroyer</span>
+              </MenuItem>
+              <MenuItem minH="40px">
+                <Image
+                  boxSize="2rem"
+                  borderRadius="full"
+                  src="https://placekitten.com/120/120"
+                  alt="Simon the pensive"
+                  mr="12px"
+                />
+                <span>Simon the pensive</span>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </div>
         <div id="navbar_right_box">
+          <div id="top_log">
+            <img src="/Tata_Assets/logo.png" alt="logo" />
+          </div>
           <div id="right_upper_box">
             <div id="right_upper_box_left_box">
               <div>
@@ -1126,13 +1179,8 @@ function NavBar() {
                               </Link>
                             </div>
                             <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  shops all footwear
-                                </a>
+                              <Link className="black-giving" style={linkstyle}>
+                                shops all footwear
                               </Link>
                             </div>
                             <div className="a-a" style={{ fontWeight: "300" }}>
@@ -3960,6 +4008,7 @@ function NavBar() {
             <div className="right_lower_box_third">
               <input
                 id="right_lower_box_third_input_box_id"
+                style={{borderRadius:"8px"}}
                 className={
                   current
                     ? "right_lower_box_third_input_box whiteoninput"
