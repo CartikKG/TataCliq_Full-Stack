@@ -34,7 +34,8 @@ const UserAuth = () => {
 
   const getUsersData = async () => {
     const res = await fetch(
-      "https://raghvendra-tatacilq-data.onrender.com/users"
+      // "https://raghvendra-tatacilq-data.onrender.com/users"
+      "https://tata-cliq-server.onrender.com/users"
     );
     const data = await res.json();
     // console.log(data);
@@ -57,7 +58,8 @@ const UserAuth = () => {
     };
 
     await fetch(
-      "https://raghvendra-tatacilq-data.onrender.com/users",
+      // "https://raghvendra-tatacilq-data.onrender.com/users",
+      "https://tata-cliq-server.onrender.com/users",
       requestOption
     );
     // const data = await res.json();
@@ -69,6 +71,18 @@ const UserAuth = () => {
     if (authType === "email") {
       const email = document.querySelector(".email").value;
       const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+      if (email.match(mailformat)) {
+        document.getElementById("continue").disabled = false;
+
+        document.getElementById("continue").style.backgroundImage =
+          "linear-gradient(to bottom right, #89216b, #da4453)";
+      } else {
+        document.getElementById("continue").disabled = true;
+      }
+    } else if (authType === "signup") {
+      const email = document.querySelector(".email").value;
+      const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
       if (email.match(mailformat)) {
         document.getElementById("continue").disabled = false;
 
@@ -99,6 +113,9 @@ const UserAuth = () => {
   const foo = () => {
     if (stage === 0) {
       // login logic
+      if (authType === "signup") {
+        toggleAuthType("email");
+      }
       if (authType === "email") {
         const email = document.querySelector(".email").value;
         const info = usersData.filter((elem) => {
@@ -154,6 +171,13 @@ const UserAuth = () => {
     }
   };
 
+  const google = () => {
+    window.open(`http://localhost:3005/auth/google/callback`, "_self");
+  };
+  const facebook = () => {
+    window.open(`http://localhost:3005/auth/facebook/callback`, "_self");
+  };
+
   return (
     <div id="pop-up">
       <div
@@ -173,9 +197,7 @@ const UserAuth = () => {
           <br />
           <div>
             <Button
-              onClick={() => {
-                console.log("facebook");
-              }}
+              onClick={google}
               colorScheme="facebook"
               leftIcon={<FaFacebook />}
             >
@@ -184,14 +206,79 @@ const UserAuth = () => {
             <br />
             <br />
             <Button
-              onClick={() => {
-                console.log("google");
-              }}
+              onClick={facebook}
               colorScheme="red"
               leftIcon={<FaGoogle />}
             >
               Signin with Google+
             </Button>
+          </div>
+          <br />
+          <div>
+            <p>
+              Dont have an account yet?{" "}
+              <span
+                style={{ color: "red" }}
+                onClick={() => {
+                  toggleAuthType("signup");
+                  setStage(-1);
+                }}
+              >
+                SignUp
+              </span>{" "}
+            </p>
+          </div>
+        </div>
+      ) : authType === "signup" ? (
+        <div className="mobile-auth">
+          <div className="pop">
+            <h1>Welcome to Tata CLiQ</h1>
+          </div>
+          <div className="form">
+            <input
+              type="email"
+              placeholder=""
+              className="email"
+              autoComplete="off"
+              required
+              onChange={validate}
+            />
+            <label htmlFor="name" className="label-name">
+              <span className="content-name">E-mail Address</span>
+            </label>
+          </div>
+          <br />
+          <div className="form">
+            <input
+              type="text"
+              placeholder=""
+              className="password"
+              autoComplete="off"
+              required
+            />
+            <label htmlFor="name" className="label-name">
+              <span className="content-name">Password</span>
+            </label>
+          </div>
+          <br />
+          <div className="form">
+            <input type="text" placeholder="" className="" required />
+            <label htmlFor="name" className="label-name">
+              <span className="content-name">Mobile Number</span>
+            </label>
+          </div>
+          <br />
+          <div className="form">
+            <input
+              type="text"
+              placeholder=""
+              className="avatar_url"
+              autoComplete="off"
+              required
+            />
+            <label htmlFor="name" className="label-name">
+              <span className="content-name">Enter Your Avatar URL..</span>
+            </label>
           </div>
         </div>
       ) : authType === "mobile" ? (
@@ -212,16 +299,37 @@ const UserAuth = () => {
       )}
 
       <br />
-      <br />
-      <p id="pink">
-        By continuing, you agree to our{" "}
-        <span style={{ color: "#da1c5c" }}>Terms of Use</span> and{" "}
-        <span style={{ color: "#da1c5c" }}>Privacy Policy</span>
-      </p>
+      {stage == -1 ? (
+        <>
+          <p id="pink">
+            By continuing, you agree to our{" "}
+            <span style={{ color: "#da1c5c" }}>Terms of Use</span> and{" "}
+            <span style={{ color: "#da1c5c" }}>Privacy Policy</span>
+          </p>
 
-      <button id="continue" onClick={foo}>
-        Continue
-      </button>
+          <button
+            id="continue"
+            onClick={() => {
+              setStage(0);
+              toggleAuthType("email");
+            }}
+          >
+            Continue
+          </button>
+        </>
+      ) : (
+        <>
+          <p id="pink">
+            By continuing, you agree to our{" "}
+            <span style={{ color: "#da1c5c" }}>Terms of Use</span> and{" "}
+            <span style={{ color: "#da1c5c" }}>Privacy Policy</span>
+          </p>
+
+          <button id="continue" onClick={foo}>
+            Continue
+          </button>
+        </>
+      )}
     </div>
   );
 };
