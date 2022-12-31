@@ -1,14 +1,4 @@
 const mongoose=require('mongoose');
-// "id": "1",
-// "department": "footwear",
-// "category": "men",
-// "img": "https://img.tatacliq.com/images/i8/437Wx649H/MP000000013762626_437Wx649H_202212040916001.jpeg",
-// "brand": "Woodland",
-// "name": "Woodland Men's Rust Derby Shoes",
-// "strikedprice": "1647",
-// "price": "1497",
-// "product_type": "casual"
-// },
 const productSchema=new mongoose.Schema(
     {
         
