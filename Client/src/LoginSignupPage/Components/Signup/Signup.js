@@ -19,8 +19,75 @@ import { Logo } from "../Logo/Logo";
 import { OAuthButtonGroup } from "../OAuthButton/OAuthButton";
 import { PasswordField } from "../Password/Password";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const Signup = () => {
+  let navigate = useNavigate();
+  const toast = useToast();
+  const handleSignup = async () => {
+    let obj = {
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+      avatar: document.getElementById("avatar_url").value,
+      name: document.getElementById("userName").value,
+    };
+    if (
+      obj.email === "" ||
+      obj.password === "" ||
+      obj.avatar === "" ||
+      obj.name === ""
+    ) {
+      toast({
+        title: "SignUp Failed!!",
+        description: "Fill all the details to Signup..",
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    } else {
+      console.log("in");
+      let res = await fetch(
+        "https://tata-cliq-server.onrender.com/users/register",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(obj),
+        }
+      );
+      let data = await res.json();
+      console.log(res);
+      console.log(data.data);
+      if (data.data !== " Users Alrady exists with the given email") {
+        toast({
+          title: "SignUp Successful",
+          description: "Login to Continue..",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+        navigate("/authenticate");
+      } else {
+        // alert("User Already Exist... Kindly Login");
+        toast({
+          title: "SignUp Failed!!",
+          description:
+            "User already exist with given Mail_Id \n Kindly Login...",
+          status: "error",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("avatar_url").value = "";
+        document.getElementById("userName").value = "";
+      }
+    }
+  };
+
   return (
     <Container
       maxW="lg"
@@ -36,8 +103,8 @@ const Signup = () => {
       <Stack spacing="">
         <Stack spacing="2">
           <img
-            style={{ width: "10%", margin: "auto", borderRadius: "10px" }}
-            src="./Tata_Assets/logo.png"
+            style={{ width: "10%", margin: "auto", borderRadius: "4%" }}
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Tata_Cliq_logo.svg/1200px-Tata_Cliq_logo.svg.png"
             alt=""
           />
           <Stack
@@ -91,13 +158,21 @@ const Signup = () => {
             <Stack spacing="5">
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input required={true} id="email" type="email" />
+                <Input
+                  pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                  required={true}
+                  id="email"
+                  type="email"
+                />
               </FormControl>
-              <PasswordField />
+              <FormControl>
+                <FormLabel>Password</FormLabel>
+                <Input required={true} id="password" type="password" />
+              </FormControl>
             </Stack>
             <Stack spacing="5">
               <FormControl>
-                <FormLabel>Avatar Url</FormLabel>
+                <FormLabel>Avatar URL</FormLabel>
                 <Input required={true} id="avatar_url" type="text" />
               </FormControl>
             </Stack>
@@ -114,7 +189,9 @@ const Signup = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button variant="solid">Sign Up</Button>
+              <Button onClick={handleSignup} variant="solid" colorScheme="red">
+                Sign Up
+              </Button>
               <HStack>
                 <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">

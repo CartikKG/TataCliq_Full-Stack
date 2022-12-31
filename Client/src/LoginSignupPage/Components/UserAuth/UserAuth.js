@@ -25,6 +25,7 @@ import {
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { Logo } from "../Logo/Logo";
 import { OAuthButtonGroup } from "../OAuthButton/OAuthButton";
 import { PasswordField } from "../Password/Password";
@@ -32,6 +33,36 @@ import { PasswordField } from "../Password/Password";
 // import db from "../../db.json";
 
 const UserAuth = () => {
+  const toast = useToast();
+  const handleSignin = async () => {
+    let obj = {
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+    };
+    if (obj.email === "" || obj.password === "") {
+      toast({
+        title: "Login Failed!!",
+        description: "Fill all the details to Login..",
+        status: "error",
+        duration: 2000,
+        position: "top",
+        isClosable: true,
+      });
+    } else {
+      console.log("inside");
+      let res = await fetch(
+        "https://tata-cliq-server.onrender.com/users/login",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(obj),
+        }
+      );
+      let data = await res.json();
+      console.log(res);
+      console.log(data);
+    }
+  };
   return (
     <Container
       maxW="lg"
@@ -47,8 +78,8 @@ const UserAuth = () => {
       <Stack spacing="">
         <Stack spacing="2">
           <img
-            style={{ width: "10%", margin: "auto", borderRadius: "10px" }}
-            src="./Tata_Assets/logo.png"
+            style={{ width: "10%", margin: "auto" }}
+            src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Tata_Cliq_logo.svg/1200px-Tata_Cliq_logo.svg.png"
             alt=""
           />
           <Stack
@@ -58,20 +89,19 @@ const UserAuth = () => {
             }}
             textAlign="center"
           >
-            <Heading
+            {/* <Heading
               size={useBreakpointValue({
                 base: "xs",
                 md: "sm",
               })}
             >
               Log in to your account
-            </Heading>
+            </Heading> */}
+            <br />
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
               <Link to={"/signup"}>
-                <Button variant="link" colorScheme="blue">
-                  Sign up
-                </Button>
+                <Button variant="solid">Sign up</Button>
               </Link>
             </HStack>
           </Stack>
@@ -104,7 +134,10 @@ const UserAuth = () => {
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Input id="email" type="email" />
               </FormControl>
-              <PasswordField />
+              <FormControl>
+                <FormLabel htmlFor="email">Password</FormLabel>
+                <Input id="password" type="password" />
+              </FormControl>
             </Stack>
             <HStack justify="space-between">
               <Checkbox defaultChecked>Remember me</Checkbox>
@@ -113,7 +146,9 @@ const UserAuth = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button variant="primary">Sign in</Button>
+              <Button variant="solid" onClick={handleSignin} colorScheme="red">
+                Sign in
+              </Button>
               <HStack>
                 <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">
