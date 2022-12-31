@@ -32,7 +32,7 @@ app.use(passport.session());
 app.use(
     cors({
         
-        origin:'https://tata-cliq-server.onrender.com',
+        origin:process.env.CLIENT_URL,
         methods:"GET,POST,PUT,DELETE",
         credentials:true
  

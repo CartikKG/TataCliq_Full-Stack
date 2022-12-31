@@ -1,6 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const passport = require("passport");
+const User = require('../models/users.model')
 
 passport.use(
 	new GoogleStrategy(
@@ -10,8 +11,18 @@ passport.use(
 			callbackURL: "/auth/google/callback",
 			scope: ["profile", "email"],
 		},
-		function (accessToken, refreshToken, profile, callback ) {
-			callback(null, profile);
+		function (accessToken, refreshToken, profile, done ) {
+			console.log(profile);
+			new User({
+				name: profile.displayName,
+				email: profile.emails[0].value,
+				avatar:profile.photos[0].value,
+				authType:'google'
+			}).save().then((user)=>{
+				console.log(user+ "user added");
+			})
+
+			done(null, profile);
 		}
 	)
 );
