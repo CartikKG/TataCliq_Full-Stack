@@ -23,7 +23,8 @@ const ProductAll = () => {
   // https://raghvendra-tatacilq-data.onrender.com/data
   const fetchdata = async () => {
     let res = await fetch(
-      `https://raghvendra-tatacilq-data.onrender.com/data/?department=${category}`
+      `https://tata-cliq-server.onrender.com/products`
+      // `https://raghvendra-tatacilq-data.onrender.com/data/?department=${category}`
     );
     //
     let data = await res.json();
