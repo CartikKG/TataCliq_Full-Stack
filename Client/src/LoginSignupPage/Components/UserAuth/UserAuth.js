@@ -172,10 +172,12 @@ const UserAuth = () => {
   };
 
   const google = () => {
-    window.open(`http://localhost:3005/auth/google/callback`, "_self");
+
+    window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
+    // window.open(`http://localhost:3005/auth/google/callback`, "_self");
   };
   const facebook = () => {
-    window.open(`http://localhost:3005/auth/facebook/callback`, "_self");
+    window.open(`https://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
   };
 
   return (
@@ -197,7 +199,7 @@ const UserAuth = () => {
           <br />
           <div>
             <Button
-              onClick={google}
+              onClick={facebook}
               colorScheme="facebook"
               leftIcon={<FaFacebook />}
             >
@@ -206,7 +208,7 @@ const UserAuth = () => {
             <br />
             <br />
             <Button
-              onClick={facebook}
+              onClick={google}
               colorScheme="red"
               leftIcon={<FaGoogle />}
             >
