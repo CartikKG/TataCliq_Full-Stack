@@ -14,7 +14,7 @@ route.get('/', async (req,res)=>{
     }
 });
 route.post('/register', async (req,res)=>{
-   let body=req.body;
+    let body=req.body;
     try {
         const data=await Users.registeredNewUser(body);
         return res.status(200).send(data);

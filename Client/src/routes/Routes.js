@@ -9,6 +9,7 @@ import Cart from "../Cart_and_Payment/Component/Pages/Cart";
 import ProductAll from "../ProductSection/ProductAll";
 import ProductDetail from "../ProductSection/ProductDetail";
 import Success from "../Cart_and_Payment/Success/Success";
+import Signup from "../LoginSignupPage/Components/Signup/Signup";
 
 function AllRoutes() {
   {
@@ -25,6 +26,7 @@ function AllRoutes() {
         <Route path="/products/:category" element={<ProductAll />}></Route>
         <Route path="/product/:id" element={<ProductDetail />}></Route>
         <Route path="/success" element={<Success />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
       </Routes>
     </>
   );

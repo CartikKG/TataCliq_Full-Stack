@@ -1,14 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { userAction } from "../../Actions/userAction";
-import { USER_ACTIONS } from "../../Reducers/userReducer";
-import AuthSuccess from "../AuthSuccess/AuthSuccess";
-import Email from "../Email/Email";
-import Mobile from "../Mobile/Mobile";
-import Otp from "../Otp/Otp";
-import "./UserAuth.css";
-import { Link, useNavigate } from "react-router-dom";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
+import React from "react";
 import {
   Box,
   Button,
@@ -28,10 +18,9 @@ import {
 import { Logo } from "../Logo/Logo";
 import { OAuthButtonGroup } from "../OAuthButton/OAuthButton";
 import { PasswordField } from "../Password/Password";
+import { Link } from "react-router-dom";
 
-// import db from "../../db.json";
-
-const UserAuth = () => {
+const Signup = () => {
   return (
     <Container
       maxW="lg"
@@ -58,22 +47,22 @@ const UserAuth = () => {
             }}
             textAlign="center"
           >
-            <Heading
-              size={useBreakpointValue({
-                base: "xs",
-                md: "sm",
-              })}
-            >
-              Log in to your account
-            </Heading>
-            <HStack spacing="1" justify="center">
-              <Text color="muted">Don't have an account?</Text>
-              <Link to={"/signup"}>
-                <Button variant="link" colorScheme="blue">
-                  Sign up
-                </Button>
-              </Link>
-            </HStack>
+            {/* <Heading
+            size={useBreakpointValue({
+              base: "xs",
+              md: "sm",
+            })}
+          >
+            Log in to your account
+          </Heading> */}
+            {/* <HStack spacing="1" justify="center">
+            <Text color="muted">Don't have an account?</Text>
+            <Link to={"/signup"}>
+              <Button variant="link" colorScheme="blue">
+                Sign up
+              </Button>
+            </Link>
+          </HStack> */}
           </Stack>
         </Stack>
         <Box
@@ -102,9 +91,21 @@ const UserAuth = () => {
             <Stack spacing="5">
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input id="email" type="email" />
+                <Input required={true} id="email" type="email" />
               </FormControl>
               <PasswordField />
+            </Stack>
+            <Stack spacing="5">
+              <FormControl>
+                <FormLabel>Avatar Url</FormLabel>
+                <Input required={true} id="avatar_url" type="text" />
+              </FormControl>
+            </Stack>
+            <Stack spacing="5">
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input required={true} id="userName" type="text" />
+              </FormControl>
             </Stack>
             <HStack justify="space-between">
               <Checkbox defaultChecked>Remember me</Checkbox>
@@ -113,7 +114,7 @@ const UserAuth = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button variant="primary">Sign in</Button>
+              <Button variant="solid">Sign Up</Button>
               <HStack>
                 <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">
@@ -130,4 +131,4 @@ const UserAuth = () => {
   );
 };
 
-export default UserAuth;
+export default Signup;
