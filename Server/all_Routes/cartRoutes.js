@@ -22,8 +22,6 @@ router.get("/:id", async (req, res) => {
 
   try {
     const cart = await Cart.findOne({owner}).populate("items.itemId");
-    // console.log(cart,"fet")
-    // if (cart && cart.items.length > 0) {
       res.status(200).send({cart});
     // } else {
     //   res.send(null);
