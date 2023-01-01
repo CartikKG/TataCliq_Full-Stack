@@ -12,7 +12,7 @@ const authRoute = require('./all_Routes/auth')
 const wishlistRoute = require('./all_Routes/wishlistRoute')
 const app=express();
 
-  app.use(express.json())
+app.use(express.json())
 app.use(cors())
 app.use('/users',usersControler)
 app.use('/products',productControler)
