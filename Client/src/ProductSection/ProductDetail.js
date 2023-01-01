@@ -35,14 +35,54 @@ const ProductDetail = () => {
   let cartdatalocal = JSON.parse(localStorage.getItem("cartdata")) || [];
   let user = true;
 
-  const buyNow = async () => {};
+  const addtowish = async (value) => {
+    let token = localStorage.getItem("userToken") || "";
+    let userId = localStorage.getItem("userId") || "";
+    if (token !== "") {
+      toast({
+        title: "Product Save to Wish",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+      let obj = {
+        itemId: value._id,
+        quantity: 1,
+      };
+      let res2 = await fetch(
+        `https://tata-cliq-server.onrender.com/wishlist/${userId}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(obj),
+        }
+      );
+      let {wishlist} = await res2.json();
+      console.log(wishlist);
 
+    } else {
+      toast({
+        title: "Login first",
+        status: "error",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+  
   const addNow = async (value) => {
     let token = localStorage.getItem("userToken") || "";
     let userId = localStorage.getItem("userId") || "";
     if (token !== "") {
-      // console.log(value)
-
+      toast({
+        title: "Added to Bag",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
       let obj = {
         itemId: value._id,
         quantity: 1,
@@ -276,11 +316,11 @@ const ProductDetail = () => {
                   justifyContent="left"
                   alignItems="center"
                 >
-                  <Link to="/cart">
+                
                     <Button
                       _hover={{ backgroundColor: "red" }}
                       onClick={() => {
-                        buyNow(productdata);
+                        addtowish(productdata);
                       }}
                       cursor="pointer"
                       colorScheme="red"
@@ -296,9 +336,9 @@ const ProductDetail = () => {
                       borderRadius="22px"
                       variant="outline"
                     >
-                      BUY NOW
+                      SAVE FOR LATER
                     </Button>
-                  </Link>
+                 
                   <Button
                     disabled={disabled ? true : false}
                     backgroundColor={disabled ? "grey" : "#FFFFFF"}

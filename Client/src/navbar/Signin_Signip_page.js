@@ -13,14 +13,21 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../ProductSection/Context/Context";
+import React from "react";
 
 function SigninSignup() {
-  const { loginInfo, setloginInfo } = useContext(LoginContext);
-  //  const isAuth = false;
-  //  const [name,setname] = useState("prince");
-  if (loginInfo !== "{}") {
+  let [loginCheck, setloginCheck] = React.useState(false);
+
+  useEffect(() => {
+    let a = localStorage.getItem("userId");
+    if (a) {
+      setloginCheck(true);
+    }
+  });
+
+  if (loginCheck) {
     return (
       <>
         {" "}
@@ -81,8 +88,8 @@ function SigninSignup() {
               <Box ml={3}>
                 <button
                   onClick={() => {
-                    sessionStorage.setItem("loggedIn", JSON.stringify({}));
-                    setloginInfo(JSON.stringify({}));
+                    localStorage.clear();
+                    setloginCheck(false);
                   }}
                 >
                   LogOut

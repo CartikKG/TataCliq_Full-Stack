@@ -13,8 +13,7 @@ const CartShow = () => {
   let [total, setTotal] = React.useState(200);
   let [coupon, setCoupon] = React.useState(0);
   let [load2, setLoad2] = React.useState(false);
-  async function fetchCart() {
-    let userId = localStorage.getItem("userId") || "";
+  async function fetchCart(userId) {
     let res2 = await fetch(
       `https://tata-cliq-server.onrender.com/cart/${userId}`
     );
@@ -23,19 +22,17 @@ const CartShow = () => {
     setLoad(cart.items);
     setTotal(cart.bill);
   }
+
+
+
+  
   useEffect(() => {
-    fetchCart();
-    // getTotal();
+    let userId = localStorage.getItem("userId") || "";
+    if(userId!=""){
+       fetchCart(userId);
+    }
+   
   }, [load2]);
-
-  // const getTotal = () => {
-  //   let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-  //   let sum = 0;
-  //   for (let i = 0; i < arr.length; i++) {
-  //     sum += parseInt(arr[i].price, 10);
-  //   }
-
-  // };
 
   return (
     <>
