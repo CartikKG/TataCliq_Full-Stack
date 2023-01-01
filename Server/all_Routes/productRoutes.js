@@ -4,10 +4,27 @@ const Post= require('../controlers/productControlers')
 const route=express.Router();
 // const axios=require('axios')
 route.get('/', async (req,res)=>{
-   
+    const {
+        page=1,
+        limit=20,
+        sortBy="price",
+        _order='desc',
+        searchBy="title",
+        q="",
+    } =req.query
     try {
-        const data=await Post.getAllPost();
-        return res.status(200).send(data);
+        const {total,Data_r}=await Post.getAllPost(page,limit, sortBy, _order, searchBy,q);
+        return res.status(200).send(
+            {
+                searchBy:searchBy,
+                q:q,
+                sortBy:sortBy,
+                _order:_order,
+                totalResponse:total,
+                limit:limit,
+                page:page,
+                data:Data_r
+            });
     } catch (error) {
         return res.status(500).send(error.message);
         
