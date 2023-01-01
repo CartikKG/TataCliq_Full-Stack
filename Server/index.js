@@ -1,5 +1,4 @@
 const express=require("express");
-
 const connect=require("./db/db")
 const usersControler=require('./all_Routes/usersRoutes')
 const productControler=require('./all_Routes/productRoutes')
