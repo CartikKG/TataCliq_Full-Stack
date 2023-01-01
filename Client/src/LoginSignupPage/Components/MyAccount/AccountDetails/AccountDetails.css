@@ -6,9 +6,17 @@
   margin-bottom: 20px;
 }
 .account {
-  width: 250px;
-  margin-top: 90px;
-  height: 180px;
+  width: 1000px;
+  margin: 90px 40px 0px 0px;
+  padding: 20px;
+  height: auto;
   box-shadow: 0 0 5px rgb(227, 226, 226);
   margin-left: 30px;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  background-color: #353535;
+  border-radius: 8px;
+  
+
 }

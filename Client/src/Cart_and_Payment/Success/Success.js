@@ -10,7 +10,7 @@ const Success = () => {
     }, 1800);
     if (state >= 4) {
       navigate("/");
-      localStorage.clear();
+     
     }
   };
   useEffect(() => {

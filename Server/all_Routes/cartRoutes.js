@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   // const owner = req.params.id;
 
   try {
-    const cart = await Cart.findOne().populate("items.itemId");
+    const cart = await Cart.find().populate("items.itemId");
     res.status(200).send({cart:cart});
    
   } catch (error) {

@@ -11,16 +11,24 @@ import {
   PopoverAnchor,
   Box,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../ProductSection/Context/Context";
+import React from "react";
 
 function SigninSignup() {
-  const { loginInfo, setloginInfo } = useContext(LoginContext);
-  //  const isAuth = false;
-  //  const [name,setname] = useState("prince");
-  if (loginInfo !== "{}") {
+  let [loginCheck, setloginCheck] = React.useState(false);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    let a = localStorage.getItem("userId");
+    if (a) {
+      setloginCheck(true);
+    }
+  });
+
+  if (loginCheck) {
     return (
       <>
         {" "}
@@ -46,11 +54,15 @@ function SigninSignup() {
           <PopoverContent w="180px" textAlign={"left"}>
             <PopoverArrow />
             <PopoverBody>
-              <Link to="/myaccount">
-                <Box ml={3}>
-                  <h1>My Account</h1>
-                </Box>
-              </Link>
+              {localStorage.getItem("userId") ? (
+                <Link to="/myaccount">
+                  <Box ml={3}>
+                    <h1>My Account</h1>
+                  </Box>
+                </Link>
+              ) : (
+                ""
+              )}
             </PopoverBody>
             <PopoverBody>
               <Box ml={3}>
@@ -81,8 +93,9 @@ function SigninSignup() {
               <Box ml={3}>
                 <button
                   onClick={() => {
-                    sessionStorage.setItem("loggedIn", JSON.stringify({}));
-                    setloginInfo(JSON.stringify({}));
+                    localStorage.clear();
+                    setloginCheck(false);
+                    navigate("/");
                   }}
                 >
                   LogOut
@@ -125,11 +138,15 @@ function SigninSignup() {
               </Button>
             </PopoverBody>
             <PopoverBody>
-              <Box ml={3}>
+              {localStorage.getItem("userId") ? (
                 <Link to="/myaccount">
-                  <h1>My Account</h1>
+                  <Box ml={3}>
+                    <h1>My Account</h1>
+                  </Box>
                 </Link>
-              </Box>
+              ) : (
+                ""
+              )}
             </PopoverBody>
             <PopoverBody>
               <Box ml={3}>

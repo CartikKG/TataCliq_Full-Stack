@@ -8,8 +8,9 @@ const AuthSuccess = ({ validate }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // localStorage
     setTimeout(() => {
-      setloginInfo(JSON.parse(sessionStorage.getItem("loggedIn")));
+      // setloginInfo(JSON.parse(sessionStorage.getItem("loggedIn")));
       navigate("/", { replace: true });
     }, 3000);
   }, [navigate]);

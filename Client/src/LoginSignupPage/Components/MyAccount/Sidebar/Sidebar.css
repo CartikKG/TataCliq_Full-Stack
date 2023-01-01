@@ -1,8 +1,8 @@
 .sidebar {
   text-align: left;
-  width: 200px;
-  margin-left: 150px;
-  margin-top: 70px;
+  width: 100%;
+  margin-left: 40%;
+  margin-top: 30%;
 }
 .side-list > li {
   margin-top: 35px;
