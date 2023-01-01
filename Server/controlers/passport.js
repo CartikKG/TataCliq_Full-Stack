@@ -11,7 +11,7 @@ passport.use(
 			callbackURL: "/auth/google/callback",
 			scope: ["profile", "email"],
 		},
-		function (accessToken, refreshToken, profile, done ) {
+		function (accessToken, refreshToken, profile, callback ) {
 			console.log(profile);
 			new User({
 				name: profile.displayName,
@@ -22,7 +22,7 @@ passport.use(
 				console.log(user+ "user added");
 			})
 
-			done(null, profile);
+			callback(null, profile);
 		}
 	)
 );

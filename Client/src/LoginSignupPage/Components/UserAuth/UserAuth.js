@@ -173,11 +173,11 @@ const UserAuth = () => {
 
   const google = () => {
 
-    // window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
-    window.open(`http:localhost:3005/auth/google/callback`, "_self");
+     window.open(`http://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
+   //window.open(`http://localhost:3005/auth/google/callback`, "_self");
   };
   const facebook = () => {
-    window.open(`https://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
+    window.open(`http://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
   };
 
   return (
