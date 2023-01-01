@@ -31,6 +31,7 @@ app.use(passport.session());
  
 app.use(
     cors({
+        
         origin:'https://tata-cliq-server.onrender.com',
         methods:"GET,POST,PUT,DELETE",
         credentials:true

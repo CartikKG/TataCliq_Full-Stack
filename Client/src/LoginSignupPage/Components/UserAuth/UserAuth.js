@@ -63,6 +63,16 @@ const UserAuth = () => {
       console.log(data);
     }
   };
+
+  const google = () => {
+
+    // window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
+    window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
+  };
+  const facebook = () => {
+    window.open(`https://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
+  };
+
   return (
     <Container
       maxW="lg"
