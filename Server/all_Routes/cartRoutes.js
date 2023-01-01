@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     res.status(200).send({cart:cart});
    
   } catch (error) {
-    res.status(500).send("Not Found");
+    res.status(500).send({error:"Not Found"});
   }
 });
 router.get("/:id", async (req, res) => {
@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
     const cart = await Cart.findOne({owner}).populate("items.itemId");
     // console.log(cart,"fet")
     // if (cart && cart.items.length > 0) {
-      res.status(200).send(cart);
+      res.status(200).send({cart});
     // } else {
     //   res.send(null);
     // }
@@ -45,7 +45,7 @@ router.post("/:id", async (req, res) => {
     let price=item.price;
     // let quantity=item
      if (!item) {
-     return res.status(404).send({ message: "item not found" });
+     return res.status(404).send({ error: "item not found" });
     }
 
    if (cart) {
@@ -93,11 +93,11 @@ router.post("/:id", async (req, res) => {
         items: [{ itemId,quantity }],
         bill: Number( quantity) * Number( price),
       });
-      return res.status(201).send(newCart);
+      return res.status(201).send({newCart});
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("something went wrong");
+    res.status(500).send({error:"something went wrong"});
   }
 });
 router.delete("/:id", async (req, res) => {
@@ -121,13 +121,13 @@ router.delete("/:id", async (req, res) => {
     },0)
       cart = await cart.save();
 
-      res.status(200).send(cart);
+      res.status(200).send({cart});
     } else {
-    res.status(404).send("item not found");
+    res.status(404).send({error:"item not found"});
     }
   } catch (error) {
     console.log(error);
-    res.status(400).send();
+    res.status(400).send({error:error});
   }
 });
 
