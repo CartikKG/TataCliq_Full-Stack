@@ -7,9 +7,14 @@ import Sidebar from "./Sidebar/Sidebar";
 const MyAccount = () => {
   return (
     <div className="myaccount-div">
-      <Sidebar />
-      <QuickLinks />
-      <AccountDetails />
+      <div>
+        <Sidebar />
+      </div>
+      <div>
+        <AccountDetails />
+      </div>
+
+      {/* <QuickLinks /> */}
     </div>
   );
 };

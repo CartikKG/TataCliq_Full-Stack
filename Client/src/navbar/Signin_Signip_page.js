@@ -11,7 +11,7 @@ import {
   PopoverAnchor,
   Box,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../ProductSection/Context/Context";
@@ -19,6 +19,7 @@ import React from "react";
 
 function SigninSignup() {
   let [loginCheck, setloginCheck] = React.useState(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
     let a = localStorage.getItem("userId");
@@ -90,6 +91,7 @@ function SigninSignup() {
                   onClick={() => {
                     localStorage.clear();
                     setloginCheck(false);
+                    navigate("/");
                   }}
                 >
                   LogOut
