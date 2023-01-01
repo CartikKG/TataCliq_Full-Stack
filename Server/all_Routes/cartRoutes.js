@@ -32,9 +32,7 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
     const owner = req.params.id;
     let { itemId, quantity } = req.body;
-    // console.log(quantity)
-
-  try {
+   try {
     let cart = await Cart.findOne({owner}).populate("items.itemId");
     let item = await Item.findOne({ _id: itemId });
     let price=item.price;
