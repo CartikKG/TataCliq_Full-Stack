@@ -54,11 +54,15 @@ function SigninSignup() {
           <PopoverContent w="180px" textAlign={"left"}>
             <PopoverArrow />
             <PopoverBody>
-              <Link to="/myaccount">
-                <Box ml={3}>
-                  <h1>My Account</h1>
-                </Box>
-              </Link>
+              {localStorage.getItem("userId") ? (
+                <Link to="/myaccount">
+                  <Box ml={3}>
+                    <h1>My Account</h1>
+                  </Box>
+                </Link>
+              ) : (
+                ""
+              )}
             </PopoverBody>
             <PopoverBody>
               <Box ml={3}>
@@ -134,11 +138,15 @@ function SigninSignup() {
               </Button>
             </PopoverBody>
             <PopoverBody>
-              <Box ml={3}>
+              {localStorage.getItem("userId") ? (
                 <Link to="/myaccount">
-                  <h1>My Account</h1>
+                  <Box ml={3}>
+                    <h1>My Account</h1>
+                  </Box>
                 </Link>
-              </Box>
+              ) : (
+                ""
+              )}
             </PopoverBody>
             <PopoverBody>
               <Box ml={3}>
