@@ -36,7 +36,6 @@ router.post("/:id", async (req, res) => {
     let cart = await Cart.findOne({owner}).populate("items.itemId");
     let item = await Item.findOne({ _id: itemId });
     let price=item.price;
-    // let quantity=item
      if (!item) {
      return res.status(404).send({ error: "item not found" });
     }
