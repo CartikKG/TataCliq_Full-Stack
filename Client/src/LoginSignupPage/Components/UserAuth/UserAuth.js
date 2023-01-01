@@ -58,19 +58,33 @@ const UserAuth = () => {
           body: JSON.stringify(obj),
         }
       );
-      let data = await res.json();
+      let data2 = await res.json();
       console.log(res);
-      console.log(data);
+      console.log(data2.data);
+      localStorage.setItem("userToken", data2.data);
+
+      let res2 = await fetch(`https://tata-cliq-server.onrender.com/users`, {
+        method: "GET",
+        headers: { Authorization: data2.data },
+      });
+      let { data } = await res2.json();
+      console.log(data[0]._id);
+      localStorage.setItem("userId", data[0]._id);
     }
   };
 
   const google = () => {
-
     // window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
-    window.open(`https://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
+    window.open(
+      `https://tata-cliq-server.onrender.com/auth/google/callback`,
+      "_self"
+    );
   };
   const facebook = () => {
-    window.open(`https://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
+    window.open(
+      `https://tata-cliq-server.onrender.com/auth/facebook/callback`,
+      "_self"
+    );
   };
 
   return (

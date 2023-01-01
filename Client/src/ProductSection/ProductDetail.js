@@ -33,23 +33,31 @@ const ProductDetail = () => {
   let [cartdata, setcartdata] = useState([]);
   let [disabled, setDisable] = useState(false);
   let cartdatalocal = JSON.parse(localStorage.getItem("cartdata")) || [];
-  // const { loginInfo, setloginInfo } = useContext(LoginContext);
   let user = true;
 
   const buyNow = async () => {};
 
   const addNow = async (value) => {
-    if (loginInfo !== "{}") {
-      let temp = [...cartdatalocal, value];
-      setcartdata(temp);
-      localStorage.setItem("cartdata", JSON.stringify(temp));
-      toast({
-        title: "Added to cart",
-        status: "success",
-        position: "top",
-        duration: 3000,
-        isClosable: true,
-      });
+    let token = localStorage.getItem("userToken") || "";
+    let userId = localStorage.getItem("userId") || "";
+    if (token !== "") {
+      // console.log(value)
+
+      let obj = {
+        itemId: value._id,
+        quantity: 1,
+      };
+      let res2 = await fetch(
+        `https://tata-cliq-server.onrender.com/cart/${userId}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(obj),
+        }
+      );
+      let data = await res2.json();
+      console.log(data);
+
     } else {
       toast({
         title: "Login first",
@@ -59,12 +67,9 @@ const ProductDetail = () => {
         isClosable: true,
       });
     }
-    // console.log("addto bag")
-  };
+   };
 
-  // const handleChange = (event) => {
-  //   setsort(event.target.value);
-  // };
+
   useEffect(() => {
     fetchproduct();
     let temp = cartdatalocal.filter((el) => {
@@ -78,23 +83,14 @@ const ProductDetail = () => {
   }, [id, cartdata]);
   const fetchproduct = async () => {
     let res = await fetch(
-      `https://raghvendra-tatacilq-data.onrender.com/data/${id}`
+      // `https://raghvendra-tatacilq-data.onrender.com/data/${id}`
+      `https://tata-cliq-server.onrender.com/products/${id}`
     );
-    let data = await res.json();
+    let { data } = await res.json();
     setproductdata(data);
   };
   let obj = productdata;
-  // let obj={
-  //     id: "1",
-  //     department: "footwear",
-  //     category: "men",
-  //     img: "https://img.tatacliq.com/images/i7/437Wx649H/MP000000010368972_437Wx649H_202108211730241.jpeg",
-  //     brand: "Woodland",
-  //     name: "Woodland Men's Rust Derby Shoes",
-  //     strikedprice: "1647",
-  //     price: "1497",
-  //     product_type: "casual"
-  //     }
+  
   let offer1 = {
     img: "https://www.tatacliq.com/src/pdp/components/img/bank_offers.svg",
     detail: "15% off on AU Small Finance Bank Limited Debit & Credit Cards.",

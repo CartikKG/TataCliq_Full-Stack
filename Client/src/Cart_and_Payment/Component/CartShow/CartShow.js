@@ -13,22 +13,29 @@ const CartShow = () => {
   let [total, setTotal] = React.useState(200);
   let [coupon, setCoupon] = React.useState(0);
   let [load2, setLoad2] = React.useState(false);
-
+  async function fetchCart() {
+    let userId = localStorage.getItem("userId") || "";
+    let res2 = await fetch(
+      `https://tata-cliq-server.onrender.com/cart/${userId}`
+    );
+    let { cart } = await res2.json();
+    console.log(cart);
+    setLoad(cart.items);
+    setTotal(cart.bill);
+  }
   useEffect(() => {
-    let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-    setLoad(arr);
-    getTotal();
+    fetchCart();
+    // getTotal();
   }, [load2]);
 
-  const getTotal = () => {
-    let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-    let sum = 0;
-    for (let i = 0; i < arr.length; i++) {
-      sum += parseInt(arr[i].price, 10);
-    }
+  // const getTotal = () => {
+  //   let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
+  //   let sum = 0;
+  //   for (let i = 0; i < arr.length; i++) {
+  //     sum += parseInt(arr[i].price, 10);
+  //   }
 
-    setTotal(sum);
-  };
+  // };
 
   return (
     <>
@@ -60,7 +67,7 @@ const CartShow = () => {
             ) : state === 1 ? (
               load.map((el, i) => {
                 console.log(el);
-                return <Cartdetails props={el} index={i} fn={setLoad} />;
+                return <Cartdetails qty={el.quantity} fn1={setTotal} props={el.itemId} index={i} fn={setLoad} setLoad={setLoad}/>;
               })
             ) : state === 3 ? (
               <Payment val={state} fn={setState} />

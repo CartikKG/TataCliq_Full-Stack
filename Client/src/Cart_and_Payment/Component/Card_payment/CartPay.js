@@ -21,8 +21,8 @@ import { useNavigate } from "react-router-dom";
 const CartPay = () => {
   let navigate = useNavigate();
 
-  const paynow = () => {
-    console.log(101);
+  const paynow = async() => {
+    // console.log(101);
     if (
       document.getElementById("cNum").value === "" ||
       document.getElementById("cName").value === "" ||
@@ -30,6 +30,15 @@ const CartPay = () => {
     ) {
       return false;
     } else {
+      let owner = localStorage.getItem("userId");
+      let res2 = await fetch(
+      `https://tata-cliq-server.onrender.com/cart/blank/${owner}`,
+      {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+       }
+    );
+    
       navigate("/success");
     }
   };

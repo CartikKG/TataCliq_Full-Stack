@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "./ProductCard.css";
 
 const ProductCard = ({ data }) => {
+  
   // const data = {
   //     department: "footwear",
   //     category: "men",
@@ -19,7 +20,7 @@ const ProductCard = ({ data }) => {
   return (
     <div>
       <Box width="205px" height="auto">
-        <Link to={`/product/${data.id}`}>
+        <Link to={`/product/${data._id}`}>
           {/* IMAGE DIV START */}
           <Box position={"relative"} className="imagecard">
             <Image

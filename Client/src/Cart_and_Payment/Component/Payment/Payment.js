@@ -6,12 +6,38 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 const Payment = (props) => {
   let [state, setState] = React.useState([]);
   let { val, fn } = props;
+  let D = new Date();
+  let month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   useEffect(() => {
-    let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-    setState(arr);
-    console.log(state);
+    getData();
+
+    // setState(arr);
+    // console.log(state);
   }, []);
+
+  const getData = async () => {
+    let userid = localStorage.getItem("userId") || "";
+    let res = await fetch(
+      `https://tata-cliq-server.onrender.com/cart/${userid}`
+    );
+    let { cart } = await res.json();
+    console.log(cart.items);
+    setState(cart.items);
+  };
 
   return (
     <>
@@ -66,18 +92,16 @@ const Payment = (props) => {
           </div>
           <br />
           <div>
-            {
-            state.map((el, i) => {
+            {state.map((el, i) => {
               return (
                 <p style={{ fontSize: "18px", textAlign: "left" }}>
-                  {el.name}
+                  {el.itemId.title}
                   <span style={{ fontWeight: "400", color: "red" }}>
-                    &nbsp; Delivery by 6th Dec
+                    &nbsp; {D.getDate() + 3}th {month[D.getMonth()]}
                   </span>
                 </p>
               );
-            })
-            }
+            })}
           </div>
         </div>
         <br />

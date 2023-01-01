@@ -93,7 +93,7 @@ router.post("/:id", async (req, res) => {
         items: [{ itemId,quantity }],
         bill: Number( quantity) * Number( price),
       });
-      return res.status(201).send({newCart});
+      return res.status(201).send({cart:newCart});
     }
   } catch (error) {
     console.log(error);
@@ -105,7 +105,7 @@ router.delete("/:id", async (req, res) => {
 
   const itemId = req.body.itemId;
   try {
-    let cart = await Cart.findOne({ owner }).populate("items.itemId");;
+    let cart = await Cart.findOne({ owner }).populate("items.itemId");
 
     const itemIndex = cart.items.findIndex((item) => item.itemId._id == itemId);
     
@@ -128,6 +128,20 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).send({error:error});
+  }
+});
+
+
+router.delete("/blank/:id", async (req, res) => {
+  const owner = req.params.id;
+ try {
+    let cart = await Cart.findOne({ owner }).populate("items.itemId");
+    cart.bill = 0;
+    cart.items=[];
+    cart = await cart.save();
+    res.status(200).send({cart});
+ } catch (error) {
+     res.status(400).send({error:error});
   }
 });
 
