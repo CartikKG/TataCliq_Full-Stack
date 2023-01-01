@@ -23,10 +23,7 @@ router.get("/:id", async (req, res) => {
   try {
     const cart = await Cart.findOne({owner}).populate("items.itemId");
       res.status(200).send({cart});
-    // } else {
-    //   res.send(null);
-    // }
-  } catch (err) {
+   } catch (err) {
     res.status(500).send({error:"Something went wrong"});
   }
 });
