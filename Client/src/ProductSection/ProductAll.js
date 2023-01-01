@@ -23,11 +23,12 @@ const ProductAll = () => {
   // https://raghvendra-tatacilq-data.onrender.com/data
   const fetchdata = async () => {
     let res = await fetch(
-      `https://tata-cliq-server.onrender.com/products`
-      // `https://raghvendra-tatacilq-data.onrender.com/data/?department=${category}`
+      // `https://tata-cliq-server.onrender.com/products`
+      `https://tata-cliq-server.onrender.com/products?searchBy=department&q=${category}`
+      // `https://raghvendra-tatacilq-data.onrender.com/data/?department=`
     );
     //
-    let data = await res.json();
+    let { data } = await res.json();
     console.log(data);
     setVal(data);
   };
@@ -35,7 +36,8 @@ const ProductAll = () => {
   // let data=React.useContext(myContext).stat
   useEffect(() => {
     setloader(true);
-    setState(val);
+    console.log(val, "First Time");
+    // setState(val);
     setTimeout(() => {
       setloader(false);
     }, 200);
@@ -72,9 +74,12 @@ const ProductAll = () => {
                 rowGap={"15px"}
                 columnGap={"8px"}
               >
-                {val.map((ele, i) => {
-                  return <ProductCard key={i} data={ele} />;
-                })}
+                {
+                  // console.log(val, "Secound time")
+                  val.map((ele, i) => {
+                    return <ProductCard key={i} data={ele} />;
+                  })
+                }
               </Box>
             </Box>
           )}

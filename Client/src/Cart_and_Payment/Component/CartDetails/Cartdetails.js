@@ -6,7 +6,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { json } from "react-router-dom";
 import myCartContext from "../../CartContext/Cartcontext";
 
-const Cartdetails = (props) => {
+const Cartdetails = ({ props, qty, fn1,setLoad }) => {
   // let[state,setState]=React.useState([]d)
   let { totval, totalfn, coupon, setcop, load2 } = useContext(myCartContext);
 
@@ -20,14 +20,15 @@ const Cartdetails = (props) => {
     price,
     product_type,
     strikedprice,
-  } = props.props;
+    _id,
+  } = props;
 
   console.log(props.fn);
   console.log(
     brand,
-    category,
+    qty,
     department,
-    id,
+    _id,
     img,
     name,
     price,
@@ -40,42 +41,46 @@ const Cartdetails = (props) => {
     setheart((prev) => !prev);
   };
 
-  const handleDelete = (a) => {
-    let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-    // console.log(arr)
-    let newArr = arr.filter((el) => {
-      return el.id !== a;
-    });
-    // console.log(newArr)
-    // arr.splice(a,1)
-    load2((prev)=>!prev)
-    props.fn(newArr);
-    localStorage.setItem("cartdata", JSON.stringify(newArr));
-
-    // console.log(a)
-  };
-  const guess = (e) => {
-    let y = props.props.price;
-    let x = parseInt(e.target.value, 10);
-
-    // let total=totval
-    if (x === 1) {
-      let arr = JSON.parse(localStorage.getItem("cartdata")) || [];
-      let sum = 0;
-      for (let i = 0; i < arr.length; i++) {
-        sum += parseInt(arr[i].price, 10);
+  const handleDelete =async (a) => {
+    let obj={ itemId:_id};
+    let owner = localStorage.getItem("userId");
+    let res2 = await fetch(
+      `https://tata-cliq-server.onrender.com/cart/${owner}`,
+      {
+        method: "DELETE",
+        headers: { "content-type": "application/json" },
+        body:JSON.stringify(obj),
       }
-      totalfn(sum);
-      // console.log(sum);
-    }else{
-      totalfn(totval + y * x);
-    }
+    );
+    let { cart } = await res2.json();
+    // console.log(cart.bill);
+    setLoad(cart.items);
+    fn1(cart.bill);
 
-    
+  };
+  const guess = async (e) => {
+    let owner = localStorage.getItem("userId");
+    let x = parseInt(e.target.value, 10);
+    let obj = {
+      itemId: _id,
+      quantity: x,
+    };
+    let res2 = await fetch(
+      `https://tata-cliq-server.onrender.com/cart/${owner}`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(obj),
+      }
+    );
+    let { cart } = await res2.json();
+    console.log(cart.bill);
+    fn1(cart.bill);
+
   };
 
   return (
-    <div className="Cartbox" style={{height:"auto"}}>
+    <div className="Cartbox" style={{ height: "auto" }}>
       <div className="cart_image">
         <img src={img} alt="shoe" />
       </div>

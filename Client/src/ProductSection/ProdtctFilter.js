@@ -37,9 +37,10 @@ const Sort = () => {
 
   const fetchData = async () => {
     let res = await fetch(
-      `https://raghvendra-tatacilq-data.onrender.com/data/?department=${paramName}`
+      // `https://raghvendra-tatacilq-data.onrender.com/data/?department=${paramName}`
+      `https://tata-cliq-server.onrender.com/products?searchBy=department&q=${paramName}`
     );
-    let data = await res.json();
+    let { data } = await res.json();
     setfunc(data);
   };
 
@@ -62,9 +63,9 @@ const Sort = () => {
     // console.log(state);
     if (state.length > 0) {
       let res = await fetch(
-        "https://raghvendra-tatacilq-data.onrender.com/data"
+        "https://tata-cliq-server.onrender.com/products?&limit=154"
       );
-      let data = await res.json();
+      let { data } = await res.json();
 
       let arr;
       var arr3 = [];
@@ -101,10 +102,10 @@ const Sort = () => {
   const data1 = async () => {
     if (state1.length > 0) {
       let res = await fetch(
-        "https://raghvendra-tatacilq-data.onrender.com/data"
+        "https://tata-cliq-server.onrender.com/products?&limit=154"
       );
-      let data = await res.json();
-      console.log(data);
+      let { data } = await res.json();
+      // console.log(data.data);
       let arr;
       var arr4 = [];
       for (let i = 0; i < state.length; i++) {
