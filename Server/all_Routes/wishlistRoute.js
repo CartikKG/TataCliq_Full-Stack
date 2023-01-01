@@ -1,5 +1,5 @@
 const express = require("express");
-const Cart = require("../models/cart.model");
+const Wishlist = require("../models/wishlistModel.js");
 const Item = require("../models/product.model");
 const Auth = require("../Middleware/authorization");
 
@@ -7,11 +7,9 @@ const router = new express.Router();
 
 
 router.get("/", async (req, res) => {
-  // const owner = req.params.id;
-
-  try {
-    const cart = await Cart.findOne().populate("items.itemId");
-    res.status(200).send({cart:cart});
+ try {
+    const cart = await Wishlist.findOne();
+    res.status(200).send({wishlist:cart});
    
   } catch (error) {
     res.status(500).send({error:"Not Found"});
@@ -21,9 +19,10 @@ router.get("/:id", async (req, res) => {
   const owner = req.params.id;
 
   try {
-    const cart = await Cart.findOne({owner}).populate("items.itemId");
-      res.status(200).send({cart});
-   } catch (err) {
+    const cart = await Wishlist.findOne({owner}).populate("items.itemId");
+       res.status(200).send({wishlist:cart});
+
+  } catch (err) {
     res.status(500).send({error:"Something went wrong"});
   }
 });
@@ -32,10 +31,12 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
     const owner = req.params.id;
     let { itemId, quantity } = req.body;
-   try {
-    let cart = await Cart.findOne({owner}).populate("items.itemId");
+  
+  try {
+    let cart = await Wishlist.findOne({owner}).populate("items.itemId");
     let item = await Item.findOne({ _id: itemId });
     let price=item.price;
+   
      if (!item) {
      return res.status(404).send({ error: "item not found" });
     }
@@ -58,7 +59,7 @@ router.post("/:id", async (req, res) => {
         cart.bill=Number(bill);
         cart.save();
          return res.send({
-            cart:cart
+            wishlist:cart
          })
       }else{
         cart.items[ind].quantity=quantity;
@@ -69,23 +70,18 @@ router.post("/:id", async (req, res) => {
         cart.bill=Number(bill);
         cart.save();
          return res.send({
-            cart:cart
+            wishlist:cart
          })
 
       }
-      
-   
-      
-
-    
     } else {
     
-       const newCart = await Cart.create({
+       const newCart = await Wishlist.create({
         owner,
         items: [{ itemId,quantity }],
         bill: Number( quantity) * Number( price),
       });
-      return res.status(201).send({cart:newCart});
+      return res.status(201).send({wishlist:newCart});
     }
   } catch (error) {
     console.log(error);
@@ -97,7 +93,7 @@ router.delete("/:id", async (req, res) => {
 
   const itemId = req.body.itemId;
   try {
-    let cart = await Cart.findOne({ owner }).populate("items.itemId");
+    let cart = await Wishlist.findOne({ owner }).populate("items.itemId");
 
     const itemIndex = cart.items.findIndex((item) => item.itemId._id == itemId);
     
@@ -113,7 +109,7 @@ router.delete("/:id", async (req, res) => {
     },0)
       cart = await cart.save();
 
-      res.status(200).send({cart});
+      res.status(200).send({wishlist:cart});
     } else {
     res.status(404).send({error:"item not found"});
     }
@@ -127,11 +123,11 @@ router.delete("/:id", async (req, res) => {
 router.delete("/blank/:id", async (req, res) => {
   const owner = req.params.id;
  try {
-    let cart = await Cart.findOne({ owner }).populate("items.itemId");
+    let cart = await Wishlist.findOne({ owner }).populate("items.itemId");
     cart.bill = 0;
     cart.items=[];
     cart = await cart.save();
-    res.status(200).send({cart});
+    res.status(200).send({wishlist:cart});
  } catch (error) {
      res.status(400).send({error:error});
   }
