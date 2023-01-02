@@ -36,7 +36,8 @@ const UserAuth = () => {
   let navigate = useNavigate();
   const toast = useToast();
   const handleSignin = async () => {
-    document.getElementById("signin").innerText = "...loading";
+    document.getElementById("signin").innerText = "Loading.....";
+
     document.getElementById("signin").disabled = true;
     let obj = {
       email: document.getElementById("email").value,
@@ -86,6 +87,8 @@ const UserAuth = () => {
           isClosable: true,
         });
         document.getElementById("password").value = "";
+        document.getElementById("signin").innerText = "Sign in";
+        document.getElementById("signin").disabled = false;
       } else {
         localStorage.setItem("userToken", data2.data);
 

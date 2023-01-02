@@ -26,6 +26,8 @@ const Signup = () => {
   let navigate = useNavigate();
   const toast = useToast();
   const handleSignup = async () => {
+    document.getElementById("signup").innerText = "Loading.....";
+    document.getElementById("signup").disabled = true;
     let obj = {
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
@@ -46,6 +48,8 @@ const Signup = () => {
         position: "top",
         isClosable: true,
       });
+      document.getElementById("signup").innerText = "Sign Up";
+      document.getElementById("signup").disabled = false;
     } else {
       console.log("in");
       let res = await fetch(
@@ -84,6 +88,8 @@ const Signup = () => {
         document.getElementById("password").value = "";
         document.getElementById("avatar_url").value = "";
         document.getElementById("userName").value = "";
+        document.getElementById("signup").innerText = "Sign Up";
+        document.getElementById("signup").disabled = false;
       }
     }
   };
@@ -189,7 +195,12 @@ const Signup = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button onClick={handleSignup} variant="solid" colorScheme="red">
+              <Button
+                onClick={handleSignup}
+                id="signup"
+                variant="solid"
+                colorScheme="red"
+              >
                 Sign Up
               </Button>
               <HStack>

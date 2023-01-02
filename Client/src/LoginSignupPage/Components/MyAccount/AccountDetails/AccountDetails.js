@@ -21,7 +21,7 @@ const AccountDetails = () => {
 
   return (
     <div className="account">
-      <div style={{ width: "100%" }}>
+      <div >
         <h1 style={{ fontSize: "200%" }}>{state.name}</h1>
         <br />
         <h1 style={{ fontSize: "150%", marginBottom: "10px" }}>
@@ -36,7 +36,7 @@ const AccountDetails = () => {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-around",
             marginTop: "35px",
           }}
         >
@@ -59,7 +59,7 @@ const AccountDetails = () => {
       </div>
       <div>
         <img
-          style={{ borderRadius: "40%", width: "40%", margin: "auto" }}
+          style={{ borderRadius: "100%",width:"100%" ,margin: "auto" }}
           src={state.avatar}
           alt=""
         />
