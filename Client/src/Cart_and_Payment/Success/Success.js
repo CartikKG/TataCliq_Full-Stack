@@ -8,7 +8,7 @@ const Success = () => {
     setTimeout(() => {
       setState((prev) => prev + 1);
     }, 1800);
-    if (state >= 4) {
+    if (state >= 5) {
       navigate("/");
      
     }
