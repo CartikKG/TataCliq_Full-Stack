@@ -73,11 +73,6 @@ router.post("/:id", async (req, res) => {
          })
 
       }
-      
-   
-      
-
-    
     } else {
     
        const newCart = await Cart.create({
