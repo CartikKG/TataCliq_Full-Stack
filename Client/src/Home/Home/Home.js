@@ -10,12 +10,37 @@ import "../Minicarousel/carousel.css"
 import  "./home.css"
 import Footer from '../Footer/Footer';
 function Home(props) {
-  // https://tata-cliq-server.onrender.com/login/success
      const [state,setState]=useState([]);
      const[data,setData]=useState([]);
      const[data1,setData1]=useState([]);
      const[data2,setData2]=useState([]);
+     const getUser = () => {
+      
+      fetch("http://localhost:3009/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+          console.log(resObject)
+          console.log("OKSAF")
+          // let name= ;
+          // setUser();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
      useEffect(()=>{
+      getUser();
       getData()
      },[]);
     const getData=async()=>{
@@ -29,9 +54,9 @@ function Home(props) {
         setData2(data.Data.Womenb)
         
       })
-      let ans=await fetch('https://tata-cliq-server.onrender.com/login/success');
+      let ans=await fetch('http://localhost:3009/auth/login/success');
       let res=await ans.json();
-      console.log(res,"Data from response");
+      // console.log(res,"Data from response");
     }
     
   
