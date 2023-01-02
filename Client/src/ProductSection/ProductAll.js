@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { myContext } from "./Context/Context";
 import { LoginContext } from "./Context/Context";
 import { useContext } from "react";
+import "./productall.css";
 
 const ProductAll = () => {
   let { category } = useParams();
@@ -59,20 +60,24 @@ const ProductAll = () => {
           ) : (
             <Box
               width="100%"
-              display="grid"
+              display="flex"
               backgroundColor={"#ECECEC"}
-              gridTemplateColumns="21% 75%"
+
+              // gridTemplateColumns="21% 75%"
               gap={"3%"}
             >
-              <Box style={{ borderRadius: "10px", padding: "8px" }}>
+              <Box id="filter" style={{ borderRadius: "10px", padding: "8px", width:"20%" }}>
                 <ProdtctFilter />
               </Box>
 
               <Box
                 display="grid"
-                gridTemplateColumns="repeat(4,1fr)"
-                rowGap={"15px"}
-                columnGap={"8px"}
+                gridTemplateColumns="repeat(auto-fill,minmax(200px,1fr))"
+                // rowGap={"15px"}
+                // columnGap={"8px"}
+                gap="10px"
+                w={"80%"}
+                id="main_product"
               >
                 {
                   // console.log(val, "Secound time")

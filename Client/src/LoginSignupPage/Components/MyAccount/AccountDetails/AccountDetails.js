@@ -18,9 +18,10 @@ const AccountDetails = () => {
     console.log(data);
     setState(data);
   };
+
   return (
     <div className="account">
-      <div>
+      <div style={{ width: "100%" }}>
         <h1 style={{ fontSize: "200%" }}>{state.name}</h1>
         <br />
         <h1 style={{ fontSize: "150%", marginBottom: "10px" }}>
@@ -48,6 +49,7 @@ const AccountDetails = () => {
             onClick={() => {
               localStorage.clear();
               navigate("/");
+              window.location.reload(false);
             }}
             colorScheme="red"
           >
@@ -56,7 +58,11 @@ const AccountDetails = () => {
         </div>
       </div>
       <div>
-        <img style={{ borderRadius: "40%" }} src={state.avatar} alt="" />
+        <img
+          style={{ borderRadius: "40%", width: "40%", margin: "auto" }}
+          src={state.avatar}
+          alt=""
+        />
       </div>
     </div>
   );
