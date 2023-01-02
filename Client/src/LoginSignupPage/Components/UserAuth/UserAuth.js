@@ -64,10 +64,10 @@ const UserAuth = () => {
       console.log(data2.data);
       if (data2.data === " User Not Found with this email") {
         toast({
-          title: "Login Failed!!",
+          title: "User Not Found with given Mail ID",
           description: "Please Signup to continue..",
           status: "error",
-          duration: 2000,
+          duration: 3000,
           position: "top",
           isClosable: true,
         });
@@ -77,7 +77,7 @@ const UserAuth = () => {
           title: "Login Failed!!",
           description: "Password is Incorrect",
           status: "error",
-          duration: 2000,
+          duration: 3000,
           position: "top",
           isClosable: true,
         });
@@ -90,8 +90,12 @@ const UserAuth = () => {
           headers: { Authorization: data2.data },
         });
         let { data } = await res2.json();
-        console.log(data[0]._id);
-        localStorage.setItem("userId", data[0]._id);
+        // console.log(data);
+        let arr = data.filter((el) => {
+          return el.email === obj.email;
+        });
+        // console.log(arr);
+        localStorage.setItem("userId", arr[0]._id);
         toast({
           title: "Login Successful!!",
           description: "Continue Shopping..",
