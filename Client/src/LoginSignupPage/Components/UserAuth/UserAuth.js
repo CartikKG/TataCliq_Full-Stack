@@ -161,7 +161,7 @@ const UserAuth = () => {
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
               <Link to={"/signup"}>
-                <Button variant="solid">Sign up</Button>
+                <Button  variant="solid">Sign up</Button>
               </Link>
             </HStack>
           </Stack>

@@ -19,7 +19,7 @@ const ProductCard = ({ data }) => {
   //   }
   return (
     <div>
-      <Box width="205px" height="auto">
+      <Box >
         <Link to={`/product/${data._id}`}>
           {/* IMAGE DIV START */}
           <Box position={"relative"} className="imagecard">
