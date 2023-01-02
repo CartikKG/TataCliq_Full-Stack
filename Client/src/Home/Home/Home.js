@@ -15,8 +15,8 @@ function Home(props) {
      const[data1,setData1]=useState([]);
      const[data2,setData2]=useState([]);
      const getUser = () => {
-      
-      fetch("http://localhost:3009/auth/login/success", {
+      // /google/callback
+      fetch("https://tata-cliq-server.onrender.com/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -27,6 +27,7 @@ function Home(props) {
       })
         .then((response) => {
           if (response.status === 200) return response.json();
+          
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
@@ -40,6 +41,7 @@ function Home(props) {
         });
     };
      useEffect(()=>{
+      console.log("OSAKDASf")
       getUser();
       getData()
      },[]);
@@ -54,8 +56,15 @@ function Home(props) {
         setData2(data.Data.Womenb)
         
       })
-      let ans=await fetch('http://localhost:3009/auth/login/success');
-      let res=await ans.json();
+      // /auth/login/success
+      console.log("OSAKDASf")
+      try {
+        let ans=await fetch('https://tata-cliq-server.onrender.com/auth/login/success');
+        let res=await ans.json();
+        
+      } catch (error) {
+        console.log(error)
+      }
       // console.log(res,"Data from response");
     }
     
