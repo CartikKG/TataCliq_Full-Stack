@@ -10,6 +10,7 @@ import "../Minicarousel/carousel.css"
 import  "./home.css"
 import Footer from '../Footer/Footer';
 function Home(props) {
+  // https://tata-cliq-server.onrender.com/login/success
      const [state,setState]=useState([]);
      const[data,setData]=useState([]);
      const[data1,setData1]=useState([]);
@@ -17,7 +18,7 @@ function Home(props) {
      useEffect(()=>{
       getData()
      },[]);
-    const getData=()=>{
+    const getData=async()=>{
       fetch("https://himangshumahato82.github.io/HomePage-Data/db.json")
       .then((res)=>res.json())
       .then((data)=>{
@@ -28,6 +29,9 @@ function Home(props) {
         setData2(data.Data.Womenb)
         
       })
+      let ans=await fetch('https://tata-cliq-server.onrender.com/login/success');
+      let res=await ans.json();
+      console.log(res,"Data from response");
     }
     
   
