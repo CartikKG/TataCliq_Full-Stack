@@ -1,5 +1,5 @@
 .firstpart{
-    /* border: 2px solid teal; */
+  
     display: flex;
     justify-content:space-evenly;
     background-color: hsl(0,0%,96%);
@@ -72,13 +72,20 @@ ul>li{
  list-style-type: none;
 }
 
+
+
+
+
+
+
+/* 
 .icon{
     
     display: flex;
     margin-top:20px;
     margin-bottom: 30px;
     background-color:  hsl(0,0%,96%);
-     /* border: 2px solid yellow;  */
+   
       height: 100px;
 
     width: 100%;
@@ -86,19 +93,19 @@ ul>li{
 .icon>div{
     margin: auto;
      padding:auto;
-    /* border: 2px solid teal; */
+  
     height:50%; 
     width: 30%;
 }
 .icon-d{
-    /* border: 2px solid teal; */
+  
     margin: auto; 
    position:relative;
     
 }
 .d{
     display: flex;
-    /* border: 2px solid teal; */
+  
     position: absolute;
     top: 90%;
     left: 50%;
@@ -106,13 +113,13 @@ ul>li{
       
 }
 .lasticon{
-    /* border: 2px solid teal; */
+  
     margin: auto; 
    position:relative;
     
 }
 .lasticon>div{
-    /* border: 2px solid teal; */
+  
     position: absolute;
     top: 90%;
     left: 30%;
@@ -120,7 +127,7 @@ ul>li{
       
 }
 .logo{
-    /* border: 2px solid #0eba53; */
+   
     margin: auto; 
    position:relative;
    height: 300px; 
@@ -128,7 +135,7 @@ ul>li{
 }
 .logo>.logoc{
     display: flex;
-    /* border: 2px solid red; */
+   
     position: absolute;
     height: 30%;
     width: 50%;
@@ -139,16 +146,65 @@ ul>li{
 .logoc>div{
     margin: auto;
 
-    /* border: 2px solid rgb(18, 200, 39); */
+   
     height:30px;
     width: 13%;  
 }
+ */
+
+
+.d >div img{
+    width: 20px;
+}
+.d{
+    display: flex;
+   
+    justify-content: flex-start;
+}
+/* .logoc div{
+    border: 2px dashed red;
+    
+} */
+.logoc div img{
+    width: 20px;
+    
+}
+.lasticon div {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.logoc{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.icon{
+    display: flex;
+    margin: 50px auto;
+   
+    width: 90%;
+}
+.icon>div{
+    width: 33%;
+    /* border: 2px solid teal; */
+}
 
 .lastPart{
-    /* border: 2px solid teal;  */
-    width: 85%;
-    display: block; 
+    /*   */
+    width: 90%;
     margin: auto;
+}
+.lastPart h6{
+    margin: 20px auto;
+    text-align: left;
+    font-weight: 400;
+
+}
+.lastPart p{
+    text-align: justify;
+    font-weight:100
 }
 
 
@@ -158,23 +214,163 @@ ul>li{
         color:black;
         
         }  */
+        @media only screen and (max-width: 900px){
+            .firstpart{
+               flex-direction: column;
+            
+            }
+            .firstpart div{
+                padding: 25px;
+            }
+            .secondPart{
+                flex-direction: column;
+               }
+            .rightPart{
+                width: 100%;
+                justify-content: space-evenly;
+               
+            }   
+            .rightPart h6{
+                text-align: center;
+            }
+            .rightPart li{
+               
+                text-align: center;
+            }
+            .leftPart{
+                width: 100%;
+                justify-content: space-evenly;
+
+            }
+            .icon{
+                flex-direction: column;
+               gap:30px
+            }
+            .icon>div{
+                
+                   width: 100%;       
+                  
+            }
+            .lasticon div {
+                
+                justify-content: center;
+                
+            }
+            .d{
+              
+               
+                justify-content: center;
+            }
+          
+        }
+
 
         @media only screen and (max-width: 600px){
             .firstpart{
-                display: none;
+               flex-direction: column;
+            
             }
+            .firstpart div{
+                padding: 25px;
+            }
+            .secondPart{
+                flex-direction: column;
+               }
             .rightPart{
                 display: none;
-               }
-        }
-        @media only screen and (max-width: 380px){
-           .secondPart{
-            display: none;
-           }
-        }
-        @media only screen and (max-width: 300px){
-            .lasticon,.logo{
-             display: none;
+               
+            }   
+           /*  .rightPart h6{
+                text-align: center;
             }
-         }
+            .rightPart li{
+               
+                text-align: center;
+            } */
+            .leftPart{
+                width: 100%;
+                justify-content: space-evenly;
+
+            }
+            .icon{
+                flex-direction: column;
+               gap:30px
+            }
+            .icon>div{
+                
+                   width: 100%;       
+                  
+            }
+            .lasticon div {
+                
+                justify-content: center;
+                
+            }
+            .d{
+              
+               
+                justify-content: center;
+            }
+            .lastPart{
+                display: none;
+            }
+          
+        }
+        @media only screen and (max-width: 350px){
+            .firstpart{
+                flex-direction: column;
+                
+             }
+             .secondPart{
+                 flex-direction: column;
+                }
+             .rightPart{
+               display: none;
+                
+             }   
+           
+             .leftPart{
+                 width: 100%;
+                 justify-content: space-evenly;
+                 flex-direction: column;
+                 gap: 20px;
+             }
+             .leftPart>ul li{
+              
+                text-align: center;
+              
+             }
+             .li-head{
+                padding-left: 0px!important;
+             }
+             .leftPart h6{
+              /*   border: 2px dashed red; */
+                text-align: center;
+             }
+             .icon{
+                 flex-direction: column;
+                gap:30px
+             }
+             .icon>div{
+                 
+                    width: 100%;       
+                   
+             }
+             .lasticon div {
+                 
+                 justify-content: center;
+                 
+             }
+             .d{
+               
+                
+                 justify-content: center;
+             }
+             .lastPart{
+                display: none;
+             }
+           
+         
+        }
+       
 

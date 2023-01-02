@@ -15,7 +15,7 @@ function Footer(props) {
             <div className='secondPart'>
              <div className='leftPart'>
              <ul  style={{textAlign:"left"}}> <h6>Tata Market Place</h6>
-               <li style={{paddingTop:"10px"}}>About Us</li>
+               <li  style={{paddingTop:"10px"}}>About Us</li>
                 <li> Careers</li>
                 <li> Sell With Us</li>
                 <li> Terms of Use</li>
@@ -23,8 +23,8 @@ function Footer(props) {
                 <li>Affiliates</li>
                 <li>Sitemap</li>
              </ul>
-             <ul  style={{textAlign:"left", paddingLeft:"30px"}}> <h6>Customer Service</h6>
-              <li style={{paddingTop:"10px"}}> Shopping</li>
+             <ul style={{textAlign:"left", paddingLeft:"30px"}} className='li-head'> <h6>Customer Service</h6>
+              <li  style={{paddingTop:"10px"}}> Shopping</li>
               <li>Offers & Promotions</li>
               <li>   Payments</li>
               <li>  Cancellation</li>
@@ -39,7 +39,7 @@ function Footer(props) {
               </li>
              </ul>
              <ul  style={{textAlign:"left"}}> <h6>My Tata CLiQ</h6>
-              <li style={{paddingTop:"10px"}}>
+              <li  style={{paddingTop:"10px"}}>
              My Account</li>
              <li> My Orders</li>
              <li> My Shopping Bag</li>
@@ -93,15 +93,15 @@ function Footer(props) {
             </div>
             <div className='lastPart'>
                <div>
-                <h6 style={{marginBottom:"20px",marginLeft:"-63%"}}>TATA CLiQ: Shop Online with India's most trusted destination</h6>
-               <p style={{marginBottom:"20px",fontWeight:"100",textAlign:"left" ,marginLeft:"10px"}}>Genuine products from all the top brands get delivered right to your doorstep. Our sleek, immersive design allows you to easily navigate between categories 
+                <h6 /* style={{marginBottom:"20px",marginLeft:"-63%"}} */>TATA CLiQ: Shop Online with India's most trusted destination</h6>
+               <p /* style={{marginBottom:"20px",fontWeight:"100",textAlign:"left" ,marginLeft:"10px"}} */>Genuine products from all the top brands get delivered right to your doorstep. Our sleek, immersive design allows you to easily navigate between categories 
                and brand stores so that you can find a wide selection of <a href=""> womenswear, menswear, kidswear, footwear, watches, accessories, footwear, watches</a>  and  <a href="">accessories </a> online.
                 You can also check our great offers and get the best prices on
                 various products across lifestyle, fashion, and more.</p>
                </div>
                <div>
-               <h6 style={{marginBottom:"20px",marginLeft:"-62%"}}>Online Shopping: Fast & convenient with the click of a button</h6>
-               <p style={{marginBottom:"20px",fontWeight:"100",textAlign:"left" ,marginLeft:"10px"}}>              
+               <h6 /* style={{marginBottom:"20px",marginLeft:"-62%"}} */>Online Shopping: Fast & convenient with the click of a button</h6>
+               <p /* style={{marginBottom:"20px",fontWeight:"100",textAlign:"left" ,marginLeft:"10px"}} */>              
                The upside of online shopping at TATA CLiQ online store, is that you'll save on time and most importantly money with TataCliq offers. It's as simple as comparing products and prices online before making the right buy. What's more, you also have the option to pay for your favourite brands and products using our easy EMI options. Of course, you can buy
                and try - in the convenience of your home. Returns are easy too: We'll pick up your returns for free or you can also drop off the goods at the nearest brand store.
                </p>
@@ -109,15 +109,15 @@ function Footer(props) {
                
                </div>
                <div>
-               <h6 style={{marginBottom:"20px",marginLeft:"-64%"}}> 
+               <h6 /* style={{marginBottom:"20px",marginLeft:"-64%"}} */> 
                Tata CLiQ Shopping App: just a few clicks on Android & iOS  </h6>
-               <p style={{marginBottom:"20px",fontWeight:"100" ,textAlign:"left",marginLeft:"10px"}}>Download the Android app from the <a href=""> Play Store </a>or the iOS app from <a href=""> Apple App Store </a> and get set to enjoy a range of benefits. Apart from the best deals, amazing offers and the latest styles online, the app also gives you the flexibility to shop at your convenience. Use the easy share options to share your shopping with your friends and family to ensure you're buying something perfect. With constant updates and a host of new features being introduced constantly, enjoy a shopping experience that you'll love.
+               <p /* style={{marginBottom:"20px",fontWeight:"100" ,textAlign:"left",marginLeft:"10px"}} */>Download the Android app from the <a href=""> Play Store </a>or the iOS app from <a href=""> Apple App Store </a> and get set to enjoy a range of benefits. Apart from the best deals, amazing offers and the latest styles online, the app also gives you the flexibility to shop at your convenience. Use the easy share options to share your shopping with your friends and family to ensure you're buying something perfect. With constant updates and a host of new features being introduced constantly, enjoy a shopping experience that you'll love.
                </p>
                </div>
                <div>
-               <h6 style={{marginBottom:"20px",marginLeft:"-63%"}}> 
+               <h6 /* style={{marginBottom:"20px",marginLeft:"-63%"}} */> 
                TATA CLiQ: The most genuine place for Fashion and Lifestyle</h6>
-               <p style={{fontWeight:"100",paddingBottom:"20px",textAlign:"left",marginLeft:"10px"}}>With an exclusive Brand Store for <a href="" style={{}} >  Westside Online </a> we have most of your trendy shopping needs taken care of. Make TATA CLiQ your online shopping destination and get the best deals on your favourite brands, with 100% genuine products. Be it jewellery or makeup, you can count on TATA CLiQ for receiving only the most authentic products.</p>
+               <p /* style={{fontWeight:"100",paddingBottom:"20px",textAlign:"left",marginLeft:"10px"}} */>With an exclusive Brand Store for <a href="" style={{}} >  Westside Online </a> we have most of your trendy shopping needs taken care of. Make TATA CLiQ your online shopping destination and get the best deals on your favourite brands, with 100% genuine products. Be it jewellery or makeup, you can count on TATA CLiQ for receiving only the most authentic products.</p>
                </div>
 
 
