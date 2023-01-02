@@ -8,7 +8,7 @@ const router = new express.Router();
 
 router.get("/", async (req, res) => {
  try {
-    const cart = await Wishlist.findOne();
+    const cart = await Wishlist.find();
     res.status(200).send({wishlist:cart});
    
   } catch (error) {

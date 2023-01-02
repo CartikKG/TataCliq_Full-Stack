@@ -33,6 +33,7 @@ import { PasswordField } from "../Password/Password";
 // import db from "../../db.json";
 
 const UserAuth = () => {
+  let navigate = useNavigate();
   const toast = useToast();
   const handleSignin = async () => {
     let obj = {
@@ -59,27 +60,67 @@ const UserAuth = () => {
         }
       );
       let data2 = await res.json();
-      console.log(res);
+      // console.log(res);
       console.log(data2.data);
-      localStorage.setItem("userToken", data2.data);
+      if (data2.data === " User Not Found with this email") {
+        toast({
+          title: "User Not Found with given Mail ID",
+          description: "Please Signup to continue..",
+          status: "error",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+        navigate("/signup");
+      } else if (data2.data === "password is incorrect") {
+        toast({
+          title: "Login Failed!!",
+          description: "Password is Incorrect",
+          status: "error",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+        document.getElementById("password").value = "";
+      } else {
+        localStorage.setItem("userToken", data2.data);
 
-      let res2 = await fetch(`https://tata-cliq-server.onrender.com/users`, {
-        method: "GET",
-        headers: { Authorization: data2.data },
-      });
-      let { data } = await res2.json();
-      console.log(data[0]._id);
-      localStorage.setItem("userId", data[0]._id);
+        let res2 = await fetch(`https://tata-cliq-server.onrender.com/users`, {
+          method: "GET",
+          headers: { Authorization: data2.data },
+        });
+        let { data } = await res2.json();
+        // console.log(data);
+        let arr = data.filter((el) => {
+          return el.email === obj.email;
+        });
+        // console.log(arr);
+        localStorage.setItem("userId", arr[0]._id);
+        toast({
+          title: "Login Successful!!",
+          description: "Continue Shopping..",
+          status: "success",
+          duration: 2000,
+          position: "top",
+          isClosable: true,
+        });
+        navigate("/");
+      }
     }
   };
 
   const google = () => {
-
-     window.open(`http://tata-cliq-server.onrender.com/auth/google/callback`, "_self");
-   //window.open(`http://localhost:3005/auth/google/callback`, "_self");
+    window.open(
+      `http://tata-cliq-server.onrender.com/auth/google/callback`,
+      "_self"
+    );
+    //window.open(`http://localhost:3005/auth/google/callback`, "_self");
   };
   const facebook = () => {
-    window.open(`https://tata-cliq-server.onrender.com/auth/facebook/callback`, "_self");
+    window.open(
+      `https://tata-cliq-server.onrender.com/auth/facebook/callback`,
+      "_self"
+    );
   };
 
   return (
@@ -120,7 +161,7 @@ const UserAuth = () => {
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
               <Link to={"/signup"}>
-                <Button variant="solid">Sign up</Button>
+                <Button  variant="solid">Sign up</Button>
               </Link>
             </HStack>
           </Stack>
