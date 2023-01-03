@@ -14,20 +14,34 @@ function Home(props) {
      const[data,setData]=useState([]);
      const[data1,setData1]=useState([]);
      const[data2,setData2]=useState([]);
+     async function getData2(){
+      if (window.location.pathname === "/") {
+           const reqParams = new URLSearchParams(window.location.search)
+           console.log("ok code")
+           const code = reqParams.get('code')
+           console.log(code)
+          //  let res= await  fetch(`/users/github-login/${code}`);
+          //  let data=await res.json();
+          //  console.log(data)
+      }
+      }
+    //   getData();
+     
      const getUser = () => {
       // /google/callback
-      fetch("https://tata-cliq-server.onrender.com/auth/login/success", {
+      // window.open('http://tata-cliq-server-596a.onrender.com/auth/login/success',"_self");
+      fetch("http://tata-cliq-server-596a.onrender.com/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
+          'Access-Control-Allow-Origin':"*",
         },
       })
         .then((response) => {
           if (response.status === 200) return response.json();
-          
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
@@ -44,6 +58,7 @@ function Home(props) {
       console.log("OSAKDASf")
       getUser();
       getData()
+      getData2()
      },[]);
     const getData=async()=>{
       fetch("https://himangshumahato82.github.io/HomePage-Data/db.json")
@@ -59,9 +74,9 @@ function Home(props) {
       // /auth/login/success
       console.log("OSAKDASf")
       try {
-        let ans=await fetch('https://tata-cliq-server.onrender.com/auth/login/success');
+        let ans=await fetch('https://tata-cliq-server-596a.onrender.com/auth/login/success');
         let res=await ans.json();
-        
+        console.log(res,"Data from response");
       } catch (error) {
         console.log(error)
       }
@@ -145,7 +160,7 @@ function Home(props) {
               state.map((elem)=>{
                 return(
                  
-                <div className='mapA'>
+                <div  className='mapA'>
                
             
                 <img src={elem.img} alt="" />
