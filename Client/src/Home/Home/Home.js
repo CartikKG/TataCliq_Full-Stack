@@ -14,52 +14,38 @@ function Home(props) {
      const[data,setData]=useState([]);
      const[data1,setData1]=useState([]);
      const[data2,setData2]=useState([]);
-     async function getData2(){
-      if (window.location.pathname === "/") {
-           const reqParams = new URLSearchParams(window.location.search)
-           console.log("ok code")
-           const code = reqParams.get('code')
-           console.log(code)
-          //  let res= await  fetch(`/users/github-login/${code}`);
-          //  let data=await res.json();
-          //  console.log(data)
-      }
-      }
-    //   getData();
-     
-     const getUser = () => {
-      // /google/callback
-      // window.open('http://tata-cliq-server-596a.onrender.com/auth/login/success',"_self");
-      fetch("http://tata-cliq-server-596a.onrender.com/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-          'Access-Control-Allow-Origin':"*",
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          console.log(resObject)
-          console.log("OKSAF")
-          // let name= ;
-          // setUser();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+  
+
      useEffect(()=>{
       console.log("OSAKDASf")
-      getUser();
       getData()
-      getData2()
+     
      },[]);
+     const search = window.location.search;
+      if (search.includes("code")) {
+       const copy = new URLSearchParams(search);
+      let flag= localStorage.setItem("userToken", copy.get("code"));
+      fetchforGoogle(copy.get("code"));
+      //  if()
+      //  localStorage.setItem("userToken", data2.data);
+      //  console.log(copy)
+      //  loginUser(copy.get("code"),dispatch)
+      }
+    async function fetchforGoogle(token){
+
+      let res2 = await fetch(`https://tata-cliq-server.onrender.com/users/login/loggedInUser`, {
+        method: "GET",
+        headers: { Authorization: token },
+      });
+      let { data } = await res2.json();
+      // console.log(data);
+      // let arr = data.filter((el) => {
+      //   return el.email === obj.email;
+      // });
+      // console.log(arr);
+      localStorage.setItem("userId", data._id)
+      }
+      
     const getData=async()=>{
       fetch("https://himangshumahato82.github.io/HomePage-Data/db.json")
       .then((res)=>res.json())
@@ -73,13 +59,13 @@ function Home(props) {
       })
       // /auth/login/success
       console.log("OSAKDASf")
-      try {
-        let ans=await fetch('https://tata-cliq-server-596a.onrender.com/auth/login/success');
-        let res=await ans.json();
-        console.log(res,"Data from response");
-      } catch (error) {
-        console.log(error)
-      }
+      // try {
+      //   let ans=await fetch('http://localhost:3005/auth/login/success');
+      //   let res=await ans.json();
+      //   console.log(res,"Data from response");
+      // } catch (error) {
+      //   console.log(error)
+      // }
       // console.log(res,"Data from response");
     }
     
