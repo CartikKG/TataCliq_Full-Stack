@@ -22,8 +22,11 @@ function Home(props) {
   const search = window.location.search;
   if (search.includes("code")) {
     const copy = new URLSearchParams(search);
-    let flag = localStorage.setItem("userToken", copy.get("code"));
-    fetchforGoogle(copy.get("code"));
+    localStorage.setItem("userToken", copy.get("code"));
+    let flag = copy.get("code")
+    let params = new URLSearchParams(search);
+    params.delete('code');
+    fetchforGoogle(flag);
     //  if()
     //  localStorage.setItem("userToken", data2.data);
     //  console.log(copy)
@@ -44,7 +47,7 @@ function Home(props) {
     // });
     // console.log(arr);
     localStorage.setItem("userId", data._id);
-    window.location.reload(false);
+   
   }
 
   const getData = async () => {
