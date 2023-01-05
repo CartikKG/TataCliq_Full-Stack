@@ -21,8 +21,7 @@ export const OAuthButtonGroup = () => (
     {providers.map(({ name, icon }) => (
       
       <Button  key={name} width="full" onClick={()=>{
-        localStorage.setItem('google/login',true);
-        window.open('http://tata-cliq-server-596a.onrender.com/auth/google',"_self")
+        window.open('https://tata-cliq-server-596a.onrender.com/auth/google',"_self")
       }} >
         <VisuallyHidden>Sign in with {name}</VisuallyHidden>
         {icon}
