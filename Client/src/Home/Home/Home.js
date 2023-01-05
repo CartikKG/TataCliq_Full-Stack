@@ -44,6 +44,7 @@ function Home(props) {
     // });
     // console.log(arr);
     localStorage.setItem("userId", data._id);
+    window.location.reload(false);
   }
 
   const getData = async () => {
