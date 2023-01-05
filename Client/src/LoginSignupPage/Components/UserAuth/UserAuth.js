@@ -36,6 +36,9 @@ const UserAuth = () => {
   let navigate = useNavigate();
   const toast = useToast();
   const handleSignin = async () => {
+    document.getElementById("signin").innerText = "Loading.....";
+
+    document.getElementById("signin").disabled = true;
     let obj = {
       email: document.getElementById("email").value,
       password: document.getElementById("password").value,
@@ -49,6 +52,8 @@ const UserAuth = () => {
         position: "top",
         isClosable: true,
       });
+      document.getElementById("signin").innerText = "Sign in";
+      document.getElementById("signin").disabled = false;
     } else {
       console.log("inside");
       let res = await fetch(
@@ -82,6 +87,8 @@ const UserAuth = () => {
           isClosable: true,
         });
         document.getElementById("password").value = "";
+        document.getElementById("signin").innerText = "Sign in";
+        document.getElementById("signin").disabled = false;
       } else {
         localStorage.setItem("userToken", data2.data);
 
@@ -122,6 +129,7 @@ const UserAuth = () => {
       "_self"
     );
   };
+  // document.getElementById("signin").setAttribute("isLoading");
 
   return (
     <Container
@@ -161,7 +169,7 @@ const UserAuth = () => {
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
               <Link to={"/signup"}>
-                <Button  variant="solid">Sign up</Button>
+                <Button variant="solid">Sign up</Button>
               </Link>
             </HStack>
           </Stack>
@@ -206,7 +214,12 @@ const UserAuth = () => {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button variant="solid" onClick={handleSignin} colorScheme="red">
+              <Button
+                id="signin"
+                variant="solid"
+                onClick={handleSignin}
+                colorScheme="red"
+              >
                 Sign in
               </Button>
               <HStack>

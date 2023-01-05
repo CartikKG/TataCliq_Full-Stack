@@ -19,14 +19,26 @@ import React from "react";
 
 function SigninSignup() {
   let [loginCheck, setloginCheck] = React.useState(false);
+  let [image, setImage] = React.useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
   let navigate = useNavigate();
 
   useEffect(() => {
     let a = localStorage.getItem("userId");
     if (a) {
       setloginCheck(true);
+      getData();
     }
   });
+
+  const getData = async () => {
+    let id = localStorage.getItem("userId");
+    let res = await fetch(`https://tata-cliq-server.onrender.com/users/${id}`);
+    let { data } = await res.json();
+    // console.log(data.avatar);
+    setImage(data.avatar);
+  };
 
   if (loginCheck) {
     return (
@@ -42,8 +54,14 @@ function SigninSignup() {
                   color="white"
                   bg="black"
                   mt={1}
+                  w="50px"
                 >
-                  <i className="fa-solid fa-user"></i>
+                  {/* <i className="fa-solid fa-user"></i> */}
+                  <img
+                    style={{ width: "100%", borderRadius: "50%" }}
+                    src={image}
+                    alt="profile"
+                  />
                 </Button>
               </Box>
               <Box color="white" mt={2} ml={-1}>

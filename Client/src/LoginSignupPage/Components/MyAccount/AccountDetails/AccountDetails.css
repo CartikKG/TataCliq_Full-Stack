@@ -13,10 +13,18 @@
   box-shadow: 0 0 5px rgb(227, 226, 226);
   margin-left: 30px;
   display: flex;
-  justify-content: space-around;
+  justify-content:space-around;
   color: white;
   background-color: #353535;
   border-radius: 8px;
   
 
+}
+.account>div:nth-child(1){
+  padding: 40px;
+    width: 70%;
+}
+.account>div:nth-child(2){
+  display: flex;
+  width: 20%;
 }

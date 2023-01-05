@@ -8,9 +8,8 @@ const Success = () => {
     setTimeout(() => {
       setState((prev) => prev + 1);
     }, 1800);
-    if (state >= 4) {
+    if (state >= 5) {
       navigate("/");
-     
     }
   };
   useEffect(() => {
@@ -25,7 +24,7 @@ const Success = () => {
           src="https://miro.medium.com/max/1400/1*CsJ05WEGfunYMLGfsT2sXA.gif"
           alt="load"
         />
-      ) : state < 4 ? (
+      ) : state < 6 ? (
         <img
           style={{ width: "700px", margin: "auto" }}
           src="https://designmodo.com/wp-content/uploads/2016/05/8-Add-to-Cart-by-Sabartism.gif"
