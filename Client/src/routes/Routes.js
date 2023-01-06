@@ -12,9 +12,7 @@ import Success from "../Cart_and_Payment/Success/Success";
 import Signup from "../LoginSignupPage/Components/Signup/Signup";
 
 function AllRoutes() {
-  {
-    console.log(Cart);
-  }
+  
   return (
     <>
       <Routes>
