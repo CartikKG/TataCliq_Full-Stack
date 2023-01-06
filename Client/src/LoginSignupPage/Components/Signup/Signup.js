@@ -51,8 +51,7 @@ const Signup = () => {
       document.getElementById("signup").innerText = "Sign Up";
       document.getElementById("signup").disabled = false;
     } else {
-      console.log("in");
-      let res = await fetch(
+       let res = await fetch(
         "https://tata-cliq-server.onrender.com/users/register",
         {
           method: "POST",
@@ -61,8 +60,6 @@ const Signup = () => {
         }
       );
       let data = await res.json();
-      console.log(res);
-      console.log(data.data);
       if (data.data !== " Users Alrady exists with the given email") {
         toast({
           title: "SignUp Successful",
@@ -74,7 +71,6 @@ const Signup = () => {
         });
         navigate("/authenticate");
       } else {
-        // alert("User Already Exist... Kindly Login");
         toast({
           title: "SignUp Failed!!",
           description:
