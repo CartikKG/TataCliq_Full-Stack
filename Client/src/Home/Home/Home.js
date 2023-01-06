@@ -16,7 +16,6 @@ function Home(props) {
   const [data2, setData2] = useState([]);
 
   useEffect(() => {
-    console.log("OSAKDASf");
     getData();
   }, []);
   const search = window.location.search;
@@ -52,7 +51,7 @@ function Home(props) {
         setData2(data.Data.Womenb);
       });
     
-    console.log("OSAKDASf");
+    
 
   };
 
