@@ -101,7 +101,7 @@
      left: 265px;
      text-align: left;
      padding-left: 10px;
-     padding-right: 14px;
+     
      
 }
 .dropdown-menu-category > div{
@@ -130,7 +130,7 @@
      height: 470px;
      z-index: 1;
      padding-left: 10px;
-     padding-right: 12px;
+     
     left: 270px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
@@ -535,7 +535,8 @@
 }
 .inputdrop{
     background-color: white;
-    height: 30px;
+    /* height: 30px; */
+    padding: 10px;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
 }
 .inputdrop:hover{
@@ -657,6 +658,10 @@
 .displayblock{
     display: block;
     z-index: 4;
+}
+.displayblock h1:hover{
+    cursor: pointer;
+    color: #FF7C96;
 }
 
 
