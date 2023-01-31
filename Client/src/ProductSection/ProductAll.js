@@ -10,8 +10,13 @@ import { useContext } from "react";
 import "./productall.css";
 
 const ProductAll = () => {
+  let [cate, setCate] = React.useState("");
   let { category } = useParams();
-  console.log(category);
+
+  if (category != cate) {
+    console.log(cate);
+    setCate(category);
+  }
 
   let [state, setState] = React.useState("");
   let [loder, setloader] = useState(false);
@@ -19,13 +24,13 @@ const ProductAll = () => {
   let { valu, fn } = useContext(LoginContext);
   useEffect(() => {
     fetchdata();
-  }, [valu]);
+  }, [valu, cate]);
 
   // https://raghvendra-tatacilq-data.onrender.com/data
   const fetchdata = async () => {
     let res = await fetch(
       // `https://tata-cliq-server.onrender.com/products`
-      `https://tata-cliq-server.onrender.com/products?searchBy=department&q=${category}`
+      `https://tata-cliq-server.onrender.com/products?searchBy=department&q=${cate}`
       // `https://raghvendra-tatacilq-data.onrender.com/data/?department=`
     );
     //
@@ -62,11 +67,13 @@ const ProductAll = () => {
               width="100%"
               display="flex"
               backgroundColor={"#ECECEC"}
-
               // gridTemplateColumns="21% 75%"
               gap={"3%"}
             >
-              <Box id="filter" style={{ borderRadius: "10px", padding: "8px", width:"20%" }}>
+              <Box
+                id="filter"
+                style={{ borderRadius: "10px", padding: "8px", width: "20%" }}
+              >
                 <ProdtctFilter />
               </Box>
 

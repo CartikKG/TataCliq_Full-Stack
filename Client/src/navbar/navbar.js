@@ -9,6 +9,7 @@ import { faFolder } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import { LoginContext } from "../ProductSection/Context/Context";
 import { useContext } from "react";
+
 import {
   Menu,
   MenuButton,
@@ -32,6 +33,7 @@ function NavBar() {
   // const [cartlen, setcartlen] = useState(len_cart);
   const [current, setcurrent] = useState(false);
   const [text, setText] = useState("");
+  const [products, setProducts] = useState([]);
 
   let { fn, valu } = useContext(LoginContext);
 
@@ -40,24 +42,19 @@ function NavBar() {
     textDecoration: "none",
     color: "gray",
   };
-  console.log(text);
 
-  const products = [
-    "shirts",
-    "formal-shirts",
-    "t-shirts",
-    "socks",
-    "formal-shirts",
-    "shoes",
-    "shoes-sneakers",
-    "shoes-formal",
-    "shoes-heels",
-    "electronics",
-    "footwear",
-    "beauty & grooming",
-    "eyewear",
-    "Men's Clothing",
-  ];
+  const fetchData = async () => {
+    let newWord = text.charAt(0).toUpperCase() + text.slice(1);
+    let res = await fetch(
+      `https://tata-cliq-server.onrender.com/products?q=${newWord}`
+    );
+    let data = await res.json();
+    if (data.data) {
+      setProducts(data.data);
+    } else {
+      setcurrent(false);
+    }
+  };
 
   function handinginputbox() {
     if (text.length > 1) {
@@ -73,9 +70,14 @@ function NavBar() {
     }
   }
 
-  function clickoninputdrop(targ) {
+  function clickoninputdrop(targ, title) {
     console.log(targ);
-    document.getElementById("right_lower_box_third_input_box_id").value = targ;
+
+    document.getElementById("right_lower_box_third_input_box_id").value = "";
+
+    setcurrent(false);
+
+    navigate(`/product/${targ}`);
   }
 
   return (
@@ -193,649 +195,832 @@ function NavBar() {
             </div>
           </div>
           <div id="right_lower_box">
-            <Link to="/products/footwear">
-              {" "}
-              <div className="right_lower_box_first">
-                <div className="right_lower_box_first_first">
-                  <div id="category_box_arrow">
-                    <div>
-                      <h1
-                        className="lowerboxof_navbar_category"
-                        id="category_box"
-                      >
-                        Categories
-                      </h1>
-                    </div>
-                    <div id="category_box_arrow_arrow">
-                      <h1>
-                        <ChevronDownIcon />
-                      </h1>
-                    </div>
+            {" "}
+            <div className="right_lower_box_first">
+              <div className="right_lower_box_first_first">
+                <div id="category_box_arrow">
+                  <div>
+                    <h1
+                      className="lowerboxof_navbar_category"
+                      id="category_box"
+                    >
+                      Categories
+                    </h1>
                   </div>
+                  <div id="category_box_arrow_arrow">
+                    <h1>
+                      <ChevronDownIcon />
+                    </h1>
+                  </div>
+                </div>
 
-                  <div className="dropdown-menu-category">
-                    <div className="dropdown-menu-category-first">
+                <div className="dropdown-menu-category">
+                  <div className="dropdown-menu-category-first">
+                    <Link to="/products/Kids">
+                      {" "}
                       <div className="dropdown-menu-category-first-first  h4-tag">
                         <p style={{ fontWeight: "300" }}>Women's Fashion</p>
                       </div>
-                      <div className="dropdown-menu-category-first-second">
-                        <div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Shop All Etnic Wear
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Kurtis & Kurtas
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Suits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sarees & Lehnga Sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Bottoms
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Blouses & Fabrics
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Dupattas
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Shops All Western Wear
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Tops & Tunics
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Dresses
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Jeans
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Trouses
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Skirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shorts
-                                </p>
-                              </Link>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets & Blazzer
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Legging
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Capris
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jumpsuits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shrugs
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweater
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweatshirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Activerwear & Sportships
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  T-shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  shorts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Truck Pnts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  innerwear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Linkerie
-                                </a>
-                              </Link>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shops all
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  bras
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Pnties
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Lingerie
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Cammison
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sleepswear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  swimswear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  shops all footwear
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  casua;l wear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  boots
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sneakers
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  flips flops
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sports shoes
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  shoes
-                                </p>
-                              </Link>
-                            </div>
-                          </div>
+                      <Link to="/products/Kids">
+                        <div className="dropdown-menu-category-first-second">
                           <div>
                             <div>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets & Blazzer
-                                </p>
-                              </Link>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Shop All Etnic Wear
+                                  </a>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Kurtis & Kurtas
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Suits
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Sarees & Lehnga Sets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Bottoms
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Blouses & Fabrics
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Dupattas
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Shops All Western Wear
+                                  </a>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Tops & Tunics
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Dresses
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Jeans
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Shirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Trouses
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Skirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Shorts
+                                  </p>
+                                </Link>
+                              </div>
                             </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Legging
-                                </p>
-                              </Link>
+                            <div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jackets & Blazzer
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Legging
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Capris
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jumpsuits
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Shrugs
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Sweater
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Sweatshirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Activerwear & Sportships
+                                  </a>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    T-shirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    shorts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jackets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Truck Pnts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    innerwear
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Linkerie
+                                  </a>
+                                </Link>
+                              </div>
                             </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Capris
-                                </p>
-                              </Link>
+                            <div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Shops all
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    bras
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Pnties
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Lingerie
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Cammison
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sleepswear
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    swimswear
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    shops all footwear
+                                  </a>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    casual wear
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    boots
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sneakers
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    flips flops
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sports shoes
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    shoes
+                                  </p>
+                                </Link>
+                              </div>
                             </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jumpsuits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shrugs
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweater
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweatshirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Activerwear & Sportships
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  T-shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  shorts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Truck Pnts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  innerwear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Linkerie
-                                </a>
-                              </Link>
+                            <div>
+                              <div>
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jackets & Blazzer
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Legging
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Capris
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jumpsuits
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Shrugs
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Sweater
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Sweatshirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Activerwear & Sportships
+                                  </a>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    T-shirts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    shorts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    jackets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    Truck Pnts
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    innerwear
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <p
+                                    className="a-a"
+                                    style={{ fontWeight: "300" }}
+                                  >
+                                    sets
+                                  </p>
+                                </Link>
+                              </div>
+                              <div
+                                className="a-a"
+                                style={{ fontWeight: "300" }}
+                              >
+                                <Link style={linkstyle}>
+                                  <a
+                                    className="black-giving"
+                                    style={{ fontWeight: "450" }}
+                                  >
+                                    Linkerie
+                                  </a>
+                                </Link>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      </Link>
+                    </Link>
+                  </div>
 
-                    <div className="dropdown-menu-category-second">
+                  <div className="dropdown-menu-category-second">
+                    <Link to="/products/Kids">
                       <div className="dropdown-menu-category-second-first h4-tag">
                         <p style={{ fontWeight: "300" }}>Kid's Fashion</p>
                       </div>
+
                       <div className="dropdown-menu-category-second-second">
                         <div>
                           <div>
@@ -1328,1814 +1513,1651 @@ function NavBar() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
+                  </div>
 
-                    <div className="dropdown-menu-category-third">
+                  <div className="dropdown-menu-category-third">
+                    <Link to="/products/Men's Clothing">
                       <div className="dropdown-menu-category-third-first h4-tag">
                         <p style={{ fontWeight: "300" }}>Men's Fashion</p>
                       </div>
-                      <div className="dropdown-menu-category-third-second">
+                    </Link>
+                    <div className="dropdown-menu-category-third-second">
+                      <div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Tops
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                t-shirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Jeans
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Shirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Formal shirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Bottoms
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Jeans
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                chinos
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                sleepswear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Boys Clothing
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                T-isrts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Shirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Trouses
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Track pants
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Sctive wear
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
                         <div>
                           <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Tops
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  t-shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Jeans
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Formal shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Bottoms
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Jeans
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  chinos
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sleepswear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Boys Clothing
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  T-isrts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Trouses
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Track pants
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Sctive wear
-                                </a>
-                              </Link>
-                            </div>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                jackets & Blazzer
+                              </p>
+                            </Link>
                           </div>
-                          <div>
-                            <div>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets & Blazzer
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  shortss
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jogger
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  inner wear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Winter wear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweater
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Sweatshirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Innerwear
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  T-shirts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  shorts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Truck Pnts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jumpsuits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Footwear
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                shortss
+                              </p>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  footewear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  mamthcing shorts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  inner
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  suits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  snweakerss
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  blazzer
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  track suits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  vests
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Watches
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  casual wear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  boots
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sneakers
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  flips flops
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sports shoes
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bags and Backpacks
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                jogger
+                              </p>
+                            </Link>
                           </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                inner wear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Winter wear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Sweater
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Sweatshirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Innerwear
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                T-shirts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                shorts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                jackets
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Truck Pnts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                jumpsuits
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                sets
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Footwear
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                footewear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                mamthcing shorts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                inner
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                suits
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                snweakerss
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                blazzer
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                track suits
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                vests
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Watches
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                casual wear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                boots
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                sneakers
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                flips flops
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                sports shoes
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bags and Backpacks
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
                           <div>
-                            <div>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  track suits
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  swimswear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  shops all footwear
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  casual wear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  jackets & Blazzer
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Legging
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Capris
-                                </p>
-                              </Link>
-                            </div>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                track suits
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                swimswear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                shops all footwear
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                casual wear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                jackets & Blazzer
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Legging
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Capris
+                              </p>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="dropdown-menu-category-fourth">
+                  <div className="dropdown-menu-category-fourth">
+                    <Link to="/products/Home">
                       <div className="dropdown-menu-category-fourth-first h4-tag">
                         <p style={{ fontWeight: "300" }}>Home and Kitchen</p>
                       </div>
-                      <div className="dropdown-menu-category-fourth-second">
+                    </Link>
+                    <div className="dropdown-menu-category-fourth-second">
+                      <div>
                         <div>
                           <div>
-                            <div>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bedding & linene
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Bedsjheets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Bedding sets
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Pilows and matt
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Comforters
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  quilts
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Dohar
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Kids Bedding linen
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  sleepswear
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bath linen
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Towels
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Hand Towel
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Face towel
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Bath mats and rugs
-                                </p>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <p
-                                  className="a-a"
-                                  style={{ fontWeight: "300" }}
-                                >
-                                  Rugs
-                                </p>
-                              </Link>
-                            </div>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bedding & linene
+                              </a>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Floor Lmaps</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Decorative Lights</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Lundry</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>coushion cover</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Rooms furninshing
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>rugs</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Sweatshirts</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Lamps and light
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>table lamps</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>cieling lamps</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>carpets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>cusion cover</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Doormats</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Footwear
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Bedsjheets
+                              </p>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>carpets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>cusion cover</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Doormats</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Lmaps
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bedsjheets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bedding sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pilows and matt</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bedding & linene
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              {" "}
-                              <Link style={linkstyle}>
-                                <a>casual wear</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              {" "}
-                              <Link style={linkstyle}>
-                                <a>boots</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bath linen
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Towels</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Hand Towel</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Face towel</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Bedding sets
+                              </p>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Home Decore</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Show piece</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  wall Decore
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>vases</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bedsjheets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bedding sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pilows and matt</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>carpets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>cusion cover</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Doormats</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Pilows and matt
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Comforters
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                quilts
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Dohar
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Kids Bedding linen
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                sleepswear
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bath linen
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Towels
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Hand Towel
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Face towel
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Bath mats and rugs
+                              </p>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <p className="a-a" style={{ fontWeight: "300" }}>
+                                Rugs
+                              </p>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Floor Lmaps</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Decorative Lights</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Lundry</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>coushion cover</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Rooms furninshing
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>rugs</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Sweatshirts</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Lamps and light
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>table lamps</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>cieling lamps</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>carpets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>cusion cover</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Doormats</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Footwear
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>carpets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>cusion cover</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Doormats</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Lmaps
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bedsjheets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bedding sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pilows and matt</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bedding & linene
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            {" "}
+                            <Link style={linkstyle}>
+                              <a>casual wear</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            {" "}
+                            <Link style={linkstyle}>
+                              <a>boots</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bath linen
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Towels</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Hand Towel</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Face towel</a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Home Decore</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Show piece</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                wall Decore
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>vases</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bedsjheets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bedding sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pilows and matt</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>carpets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>cusion cover</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Doormats</a>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="dropdown-menu-category-fifth">
+                  <div className="dropdown-menu-category-fifth">
+                    <Link to="/products/beauty & grooming">
                       <div className="dropdown-menu-category-fifth-first h4-tag">
                         <p style={{ fontWeight: "300" }}>Beauty</p>
                       </div>
-                      <div className="dropdown-menu-category-fifth-second">
+                    </Link>
+                    <div className="dropdown-menu-category-fifth-second">
+                      <div>
                         <div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Fragrance Store
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>perfume</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>gift</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Deodrandts</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bodymists</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>All frangrance</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Makeup</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Eyes
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Matching sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Naila</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Fcae</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Lips</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Skin
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>All Makeup</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Shorts</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Fragrance Store
+                              </a>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Mosturises</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>facial</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Eye creams</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Combo sets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Men's Skin Care</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Ntural skin care</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Derma Skin Care</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Hair
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>hsmapoo</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>conditioner</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>hair masks</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>hair styling</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>hair care</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>all skin</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  K-skin
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>perfume</a>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Ntural Hair Color</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>All Hiar</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>inner</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Men's grooming
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>shaving</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Beard and momtchaaes</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Tools and Accesories
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bath and Body
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  All Beauty and grooming
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>gift</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Deodrandts</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bodymists</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>All frangrance</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Makeup</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Eyes
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Matching sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Naila</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Fcae</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Lips</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Skin
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>All Makeup</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Shorts</a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Mosturises</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>facial</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Eye creams</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Combo sets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Men's Skin Care</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Ntural skin care</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Derma Skin Care</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Hair
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>shampoo</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>conditioner</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>hair masks</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>hair styling</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>hair care</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>all skin</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                K-skin
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Natural Hair Color</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>All Hiar</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>inner</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Men's grooming
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>shaving</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Beard and momtchaaes</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Tools and Accesories
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bath and Body
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                All Beauty and grooming
+                              </a>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="dropdown-menu-category-sixth">
+                  <div className="dropdown-menu-category-sixth">
+                    <Link to="/products/electronics">
                       <div className="dropdown-menu-category-sixth-first h4-tag">
                         <p style={{ fontWeight: "300" }}>Gadgets</p>
                       </div>
-                      <div className="dropdown-menu-category-sixth-second">
+                    </Link>
+                    <div className="dropdown-menu-category-sixth-second">
+                      <div>
                         <div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Audio store
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Headphones</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Wired Earphone</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Headsets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Neckbands</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>True wear</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Headsets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Headphones</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Spekaers
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bluetooth</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Wearabele
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>premium</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Personal Care
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Hair Dryers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>sound</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Audio store
+                              </a>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Hair starithner</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>hair stylers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Trimmers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Eplitaors</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Oral Care</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Hair curlers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Health care
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Electric meassagers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Health monitor</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Steamers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Wiegh</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Thermometer</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Tech Accesories
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Fast Chargers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Power Banks
-                                </a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Headphones</a>
+                            </Link>
                           </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Cables</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Cases & Cover</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Screen Protector</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Memeory Cards</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Mobile Holders</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Tblets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Smart Home
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Lights</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Smarts Plugs</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Smarts Locks</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Powers and hands</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Wired Earphone</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Headsets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Neckbands</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>True wear</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Headsets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Headphones</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Spekaers
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bluetooth</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Wearabele
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>premium</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Personal Care
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Hair Dryers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>sound</a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Hair starithner</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>hair stylers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Trimmers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Eplitaors</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Oral Care</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Hair curlers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Health care
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Electric meassagers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Health monitor</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Steamers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Wiegh</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Thermometer</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Tech Accesories
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Fast Chargers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Power Banks
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Cables</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Cases & Cover</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Screen Protector</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Memeory Cards</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Mobile Holders</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Tblets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Smart Home
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Lights</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Smarts Plugs</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Smarts Locks</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Powers and hands</a>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="dropdown-menu-category-seventh">
-                      <div className="dropdown-menu-category-seventh-first h4-tag">
-                        <p style={{ fontWeight: "300" }}>Jewellery</p>
-                      </div>
-                      <div className="dropdown-menu-category-seventh-second">
+                  <div className="dropdown-menu-category-seventh">
+                    <div className="dropdown-menu-category-seventh-first h4-tag">
+                      <p style={{ fontWeight: "300" }}>Jewellery</p>
+                    </div>
+                    <div className="dropdown-menu-category-seventh-second">
+                      <div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Golds Jewellery
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Earrings</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Chains</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pendants</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Nceklace</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Managalsutaerra</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bnales</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Diamond Jewellery
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Earring</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pnedats</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Nceklace</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Rings</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bnales</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Necklace</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Silver Jewellery
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Earring</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Rings</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pendants</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Necklace</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bangles</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Toe Rings</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Sweatshirts</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Fashion Jewellery
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Earring</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Necklaces</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Pendants</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Bangles</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Rings</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Coins and bars
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Golds</a>
+                            </Link>
+                          </div>
+                        </div>
                         <div>
                           <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Golds Jewellery
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Earrings</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Chains</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pendants</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Nceklace</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Managalsutaerra</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bnales</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Diamond Jewellery
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Earring</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pnedats</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Nceklace</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Rings</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bnales</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Necklace</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Silver Jewellery
-                                </a>
-                              </Link>
-                            </div>
-                          </div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Earring</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Rings</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pendants</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Necklace</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bangles</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Toe Rings</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Sweatshirts</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Fashion Jewellery
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Earring</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Necklaces</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Pendants</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Bangles</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Rings</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Coins and bars
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Golds</a>
-                              </Link>
-                            </div>
-                          </div>
-                          <div>
-                            <div>
-                              <Link style={linkstyle}>
-                                <a>Silver</a>
-                              </Link>
-                            </div>
+                            <Link style={linkstyle}>
+                              <a>Silver</a>
+                            </Link>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="dropdown-menu-category-eight">
-                      <div className="dropdown-menu-category-eight-first h4-tag">
-                        <p style={{ fontWeight: "300" }}>Accesories</p>
-                      </div>
-                      <div className="dropdown-menu-category-eight-second">
+                  <div className="dropdown-menu-category-eight">
+                    <div className="dropdown-menu-category-eight-first h4-tag">
+                      <p style={{ fontWeight: "300" }}>Accesories</p>
+                    </div>
+                    <div className="dropdown-menu-category-eight-second">
+                      <div>
                         <div>
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Bags, Wallets
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>handsbags</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Sling Bags</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Backpacks</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Wallets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Clutches</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>meassagers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Body Bags</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Watches
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Smartsphones</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>for him</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>For hers</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Eyewears
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Wallets</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>sunglasses</a>
-                              </Link>
-                            </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Bags, Wallets
+                              </a>
+                            </Link>
                           </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>handsbags</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Sling Bags</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Backpacks</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Wallets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Clutches</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>meassagers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Body Bags</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Watches
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Smartsphones</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>for him</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>For hers</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Eyewears
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Wallets</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>sunglasses</a>
+                            </Link>
+                          </div>
+                        </div>
 
-                          <div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Reading Glasses</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Eye glasses</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Ffashion Accesories
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Belts</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Ties</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Socks</a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a
-                                  className="black-giving"
-                                  style={{ fontWeight: "450" }}
-                                >
-                                  Luggage & Trolley
-                                </a>
-                              </Link>
-                            </div>
-                            <div className="a-a" style={{ fontWeight: "300" }}>
-                              <Link style={linkstyle}>
-                                <a>Trolley</a>
-                              </Link>
-                            </div>
+                        <div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Reading Glasses</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Eye glasses</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Ffashion Accesories
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Belts</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Ties</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Socks</a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a
+                                className="black-giving"
+                                style={{ fontWeight: "450" }}
+                              >
+                                Luggage & Trolley
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="a-a" style={{ fontWeight: "300" }}>
+                            <Link style={linkstyle}>
+                              <a>Trolley</a>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -3143,7 +3165,7 @@ function NavBar() {
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
             <div className="right_lower_box_second">
               <div className="right_lower_box_second_first">
                 {/* <h1 className="lowerboxof_navbar_brand" id="brand_box">Brands</h1> */}
@@ -4057,10 +4079,20 @@ function NavBar() {
                 onChange={(event) => {
                   setText(event.target.value);
                   handinginputbox();
+                  setcurrent(true);
+                  if (event.target.value === "") {
+                    setcurrent(false);
+                  }
+                  fetchData();
                 }}
                 onKeyDown={(ev) => {
                   if (ev.key === "Enter") {
-                    navigate(`/products/${text}`);
+                    let word = text;
+                    if (word === "kids") {
+                      word = "Kids";
+                    }
+
+                    navigate(`/products/${word}`);
                     document.getElementById(
                       "right_lower_box_third_input_box_id"
                     ).value = "";
@@ -4079,17 +4111,15 @@ function NavBar() {
                 {products.map((elem) => {
                   return (
                     <>
-                      {elem.includes(text) ? (
-                        <div className="inputdrop">
-                          <h1
-                            onClick={(ev) => {
-                              clickoninputdrop(ev.target.innerText);
-                            }}
-                          >
-                            {elem}
-                          </h1>
-                        </div>
-                      ) : null}
+                      <div className="inputdrop">
+                        <h1
+                          onClick={(ev) => {
+                            clickoninputdrop(elem._id, elem.title);
+                          }}
+                        >
+                          {elem.title}
+                        </h1>
+                      </div>
                     </>
                   );
                 })}
@@ -4097,11 +4127,13 @@ function NavBar() {
             </div>
             <div className="fourth_lower_box">
               <div>
-                <div>
-                  <h1 className="icon_heart">
-                    <FontAwesomeIcon icon={faHeart} />
-                  </h1>
-                </div>
+                <Link to="/myaccount">
+                  <div>
+                    <h1 className="icon_heart">
+                      <FontAwesomeIcon icon={faHeart} />
+                    </h1>
+                  </div>
+                </Link>
                 {/* {wishlistlen > 0 ? (
                   <div className="redround heart_icon">
                     <Link to="/wishlist">
