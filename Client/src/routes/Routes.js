@@ -2,7 +2,6 @@ import { Link, Routes, Route } from "react-router-dom";
 import { Navigate } from "react";
 import Home from "../Home/Home/Home";
 import React from "react";
-// import Login from "../LoginSignupPage/Components/UserAuth/UserAuth"
 import UserAuth from "../LoginSignupPage/Components/UserAuth/UserAuth";
 import MyAccount from "../LoginSignupPage/Components/MyAccount/MyAccount";
 import Cart from "../Cart_and_Payment/Component/Pages/Cart";
@@ -12,9 +11,7 @@ import Success from "../Cart_and_Payment/Success/Success";
 import Signup from "../LoginSignupPage/Components/Signup/Signup";
 
 function AllRoutes() {
-  {
-    console.log(Cart);
-  }
+  
   return (
     <>
       <Routes>

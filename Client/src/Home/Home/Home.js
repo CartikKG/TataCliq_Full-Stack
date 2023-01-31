@@ -16,7 +16,6 @@ function Home(props) {
   const [data2, setData2] = useState([]);
 
   useEffect(() => {
-    console.log("OSAKDASf");
     getData();
   }, []);
   const search = window.location.search;
@@ -27,10 +26,6 @@ function Home(props) {
     let params = new URLSearchParams(search);
     params.delete('code');
     fetchforGoogle(flag);
-    //  if()
-    //  localStorage.setItem("userToken", data2.data);
-    //  console.log(copy)
-    //  loginUser(copy.get("code"),dispatch)
   }
   async function fetchforGoogle(token) {
     let res2 = await fetch(
@@ -41,11 +36,6 @@ function Home(props) {
       }
     );
     let { data } = await res2.json();
-    // console.log(data);
-    // let arr = data.filter((el) => {
-    //   return el.email === obj.email;
-    // });
-    // console.log(arr);
     localStorage.setItem("userId", data._id);
    
   }
@@ -54,24 +44,16 @@ function Home(props) {
     fetch("https://himangshumahato82.github.io/HomePage-Data/db.json")
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.Data)
+       
         setState(data.Data.Deals);
         setData(data.Data.Dealsa);
         setData1(data.Data.womena);
         setData2(data.Data.Womenb);
       });
-    // /auth/login/success
-    console.log("OSAKDASf");
-    // try {
-    //   let ans=await fetch('http://localhost:3005/auth/login/success');
-    //   let res=await ans.json();
-    //   console.log(res,"Data from response");
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    // console.log(res,"Data from response");
+    
+    
+
   };
-  // console.log(res,"Data from response");
 
   return (
     <div style={{ backgroundColor: "hsl(0,0%,93%)" }}>

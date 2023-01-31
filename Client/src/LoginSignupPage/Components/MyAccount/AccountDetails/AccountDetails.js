@@ -15,8 +15,7 @@ const AccountDetails = () => {
     let id = localStorage.getItem("userId") || "";
     let res = await fetch(`https://tata-cliq-server.onrender.com/users/${id}`);
     let { data } = await res.json();
-    console.log(data);
-    setState(data);
+     setState(data);
   };
 
   return (
